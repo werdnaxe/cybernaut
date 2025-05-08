@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import React from 'react'
 import './App.css'
+import background from './assets/farthest-portal.png'
 
 const App = () => {
   return (
-    <h1>
-      Hello CYBERNAUT
-    </h1>
+    <div
+      className="h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url('${background}')` }}
+    >
+      <h1>
+        Hello CYBERNAUT
+      </h1>
+    </div>
   )
 }
 
