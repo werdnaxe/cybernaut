@@ -1,17 +1,21 @@
-import { useState } from 'react'
-import React from 'react'
-import './App.css'
-import background from './assets/farthest-portal.png'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 const App = () => {
   return (
-    <div
-      className="h-screen bg-cover bg-center bg-[url('./assets/farthest-portal.png')]">
-      <h1>
-        Hello CYBERNAUT
-      </h1>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
