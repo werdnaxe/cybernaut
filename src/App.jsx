@@ -4,9 +4,12 @@ import './App.css'
 
 const App = () => {
   return (
-    <h1>
-      Zip zop beep bop
-    </h1>
+    <div
+      className="h-screen bg-cover bg-center bg-[url('./assets/farthest-portal.png')]">
+      <h1>
+        Hello CYBERNAUT
+      </h1>
+    </div>
   )
 }
 
