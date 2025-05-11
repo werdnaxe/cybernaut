@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import React from 'react'
 import './App.css'
+import background from './assets/farthest-portal.png'
 
 const App = () => {
   return (
