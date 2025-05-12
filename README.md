@@ -10,7 +10,7 @@
 
 Create a `.env` file inside the `server/` directory with the following:
 
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string  
 PORT=5000
 
 See developer for `MONGO_URI` value.
