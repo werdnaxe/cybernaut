@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
-import React from 'react'
-import './App.css'
-import background from './assets/farthest-portal.png'
-import axios from 'axios'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 function App () {
 
@@ -46,38 +47,15 @@ function App () {
   }, [])
   
   return (
-    <div
-      className="h-screen bg-cover bg-center"
-      style={{ backgroundImage: `url('${background}')` }}
-      >
-      <h1>
-        Hello CYBERNAUT
-      </h1>
-
-      {/* POST widget */}
-      <div className="mb-4">
-        <input
-          type = "text"
-          value = {newUsername}
-          onChange = {e => setNewUserName(e.target.value)}
-          placeholder = "Enter new username"
-          className = "border border-gray-300 rounded px-4 py-2 mr-2"
-        />
-        <button
-          onClick = {createUser}
-          className = "bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
-        >
-          Create User
-        </button>
-      </div>
-
-      {/* Fetched user data */}
-      <p>Username: {data.username}</p>
-      <p>Email: {data.email}</p>
-      <p>Password: {data.password}</p>
-
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
