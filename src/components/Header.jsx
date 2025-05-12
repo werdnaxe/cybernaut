@@ -16,6 +16,9 @@ const Header = () => {
                 <li>
                     <NavLink to="/contact" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Contact</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/grade-level" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Grade Level</NavLink>
+                </li>
             </ul>
         </nav>
     </header>
