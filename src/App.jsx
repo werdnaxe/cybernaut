@@ -6,6 +6,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import GradeLevel from './pages/GradeLevel'; // added
 import Destinations from './pages/Destinations'; // added
+import ModuleTest from './pages/ModuleTest';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/grade-level" element={<GradeLevel />} />
         <Route path="/destinations" element={<Destinations />} /> 
+        <Route path="/module-test" element={<ModuleTest />} />
       </Routes>
     </div>
   );

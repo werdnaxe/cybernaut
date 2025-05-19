@@ -22,6 +22,9 @@ const Header = () => {
                 <li>
                     <NavLink to="/destinations" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Destinations</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/module-test" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:test-gray-300'}>Test Module</NavLink>
+                </li>
             </ul>
         </nav>
     </header>
