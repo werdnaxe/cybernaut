@@ -62,7 +62,7 @@ const ModuleTest = () => {
     }
   };
 
-  const progressPercentage = ((currentSegment + 1) / totalSegments) * 100;
+  const progressPercentage = (currentSegment / (totalSegments - 1)) * 100;
 
   return (
     <div className="min-h-screen bg-blue-50 p-8">
@@ -104,14 +104,18 @@ const ModuleTest = () => {
           
           <div className="flex-1 mx-4">
             <div className="w-full bg-gray-200 rounded-full h-8">
+        
               <div 
                 className="bg-blue-600 h-8 rounded-full transition-all duration-300 ease-in-out relative"
                 style={{ width: `${progressPercentage}%` }}
               >
+                {currentSegment > 0 && (
                 <span className="absolute inset-0 flex items-center justify-center text-white font-medium">
-                    {progressPercentage}%
+                    {Math.round(progressPercentage)}%
                 </span>
+                )}
               </div>
+              
             </div>
           </div>
           
