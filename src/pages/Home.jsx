@@ -1,51 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useUser, useCreateUser } from '../features/users/hooks';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import './Cybernaut.css';
+import UserForm from '../features/users/UserForm';
 
 function Home() {
-  // state for creating new user data (React controls the value of the input field)
-  const [newUsername, setNewUserName] = useState('');
-  
-  // state for fetching existing user data
-  const [data, setData] = useState([]);
-
   // State for controlling continue button visibility
   const [showContinueButton, setShowContinueButton] = useState(true);
 
-  // POST (create) user when button is clicked
-  const createUser = async () => {
-    try {
-      const payload = { 
-        username: newUsername, 
-        email: `${newUsername}@example.com`,
-        password: 'defaultpassword' 
-      };
-      const response = await axios.post('http://localhost:5000/api/users', payload);
-      const newUser = response.data;
-      console.log('User created:', newUser);
-      setNewUserName('');
-    } catch (error) {
-      console.error('Error creating user:', error);
-    }
-  };
+  // State for new user name
+  const [showForm, setShowForm] = useState(false);
+  const { createUser } = useCreateUser();
+  const [newUsername, setNewUserName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-  // GET user by id
-  const fetchUserByID = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/users/681bef98aae7a2a61ceed06f');
-      setData(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+  // Handle the new user creation
+  const handleCreateUser = async () => {
+    await createUser({
+      username: newUsername,
+      email: newEmail,
+      password: newPassword,
+    });
+    setNewUserName('');
+    setNewEmail('');
+    setNewPassword('');
+    setShowForm(false);
   };
-
-  // React hook to fetch data upon initial rendering of component (this is a side effect)
-  useEffect(() => {
-    fetchUserByID();
-  }, []);
 
   // handle continue button click
   const handleContinueClick = () => {
@@ -53,7 +35,7 @@ function Home() {
   };
 
   return (
-    <div
+    <div 
       className="h-screen bg-cover bg-center relative overflow-hidden"
       style={{ 
         backgroundImage: `url('${background}')`,
@@ -62,33 +44,20 @@ function Home() {
         minHeight: '100vh'
       }}
     >
-      <h1>
-        Hello CYBERNAUT
-      </h1>
-      
-      {/* POST widget */}
-      <div className="mb-4 p-4">
-        <input
-          type="text"
-          value={newUsername}
-          onChange={e => setNewUserName(e.target.value)}
-          placeholder="Enter new username"
-          className="border border-gray-300 rounded px-4 py-2 mr-2"
-        />
-        <button
-          onClick={createUser}
-          className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
-        >
-          Create User
+      <header className="p-6 flex justify-between items-center">
+        <h1>Hello CYBERNAUT</h1>
+        <button onClick={() => setShowForm(f => !f)}>
+          {showForm ? 'Hide New User Form' : 'Add New User'}
         </button>
-      </div>
+      </header>
 
-      {/* Fetched user data */}
-      <div className="text-white p-4">
-        <p>Username: {data.username}</p>
-        <p>Email: {data.email}</p>
-        <p>Password: {data.password}</p>
-      </div>
+      {/* Inline New User Form */}
+      {showForm && (
+        <UserForm
+          onSaved={() => setShowForm(false)}
+          onCancel={() => setShowForm(false) }
+        />
+      )}
 
       {/* Character Container */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" 
