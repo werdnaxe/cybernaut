@@ -5,7 +5,10 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import GradeLevel from './pages/GradeLevel';
-import UserForm from './features/users/UserForm';
+import UserForms from './pages/UserForms';
+import Profile from './pages/Profile';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './features/users/PrivateRoute';
 
 const App = () => {
   return (
@@ -16,7 +19,11 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/grade-level" element={<GradeLevel />} />
-        <Route path="/user-form" element={<UserForm />} />
+        <Route path="/user-forms" element={<UserForms />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </div>
   );
