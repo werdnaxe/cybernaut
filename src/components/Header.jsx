@@ -19,6 +19,15 @@ const Header = () => {
                 <li>
                     <NavLink to="/grade-level" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Grade Level</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/user-forms" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Signup/Login</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/profile" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Profile</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Dashboard</NavLink>
+                </li>
             </ul>
         </nav>
     </header>
