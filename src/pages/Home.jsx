@@ -115,13 +115,13 @@ function Home() {
       
       {/* Navigation Buttons */}
       <div className="absolute top-1/2 right-16 transform -translate-y-1/2 flex flex-col space-y-4">
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
           EDUCATORS
         </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
           STUDENTS
         </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
           CUSTOMIZE YOUR CYBERNAUT
         </button>
       </div>
