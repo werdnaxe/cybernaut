@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/userModel.js';   // this will incorporate Mongoose functionality and replace MongoDB native driver
+import jwt from 'jsonwebtoken';   // to generate token
 
 // To connect to database
 import db from '../../db/conn.js';
@@ -10,12 +11,35 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const createdUser = await User.create(req.body);
-        
         res.send(createdUser).status(204);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error creating user');
     }
+})
+
+// Login user and grant access token
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    // Check if login credentials are valid
+    const user = await User.findOne({ username, password });
+
+    // If valid credentials, generate token and send. Otherwise, send error message
+    if (user) {
+        const token = jwt.sign( 
+            { id: user._id }, 
+            process.env.PRIVATE_ACCESS_TOKEN, 
+            { expiresIn: '1h' } 
+        );
+        console.log('Token generated:', token);
+
+        // Remove password from user object before sending response
+        const { password: _, ...userWithoutPassword } = user.toObject();
+        res.send( { user: userWithoutPassword, token } ).status(200);
+
+    } else res.send('Invalid username or password').status(401);
+
 })
 
 // Get all users
