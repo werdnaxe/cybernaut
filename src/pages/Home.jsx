@@ -1,33 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useUser, useCreateUser } from '../features/users/hooks';
+import React, { useState } from 'react';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import './Cybernaut.css';
-import UserForm from '../features/users/UserForm';
 
 function Home() {
   // State for controlling continue button visibility
   const [showContinueButton, setShowContinueButton] = useState(true);
-
-  // State for new user name
-  const [showForm, setShowForm] = useState(false);
-  const { createUser } = useCreateUser();
-  const [newUsername, setNewUserName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-
-  // Handle the new user creation
-  const handleCreateUser = async () => {
-    await createUser({
-      username: newUsername,
-      email: newEmail,
-      password: newPassword,
-    });
-    setNewUserName('');
-    setNewEmail('');
-    setNewPassword('');
-    setShowForm(false);
-  };
 
   // handle continue button click
   const handleContinueClick = () => {
@@ -46,18 +24,7 @@ function Home() {
     >
       <header className="p-6 flex justify-between items-center">
         <h1>Hello CYBERNAUT</h1>
-        <button onClick={() => setShowForm(f => !f)}>
-          {showForm ? 'Hide New User Form' : 'Add New User'}
-        </button>
       </header>
-
-      {/* Inline New User Form */}
-      {showForm && (
-        <UserForm
-          onSaved={() => setShowForm(false)}
-          onCancel={() => setShowForm(false) }
-        />
-      )}
 
       {/* Character Container */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" 
