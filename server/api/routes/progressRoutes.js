@@ -1,5 +1,7 @@
+/* This file contains the routes for the progress API. Each call is tied to a specific user action. */
+
 import express from 'express';
-import Progress from '../models/progressModel.js';   // this will incorporate Mongoose functionality and replace MongoDB native driver
+import Progress from '../models/progressModel.js';
 
 // To connect to database
 import db from '../../db/conn.js';
@@ -9,28 +11,29 @@ const router = express.Router();
 // Create user's progress document
 router.post('/', async (req, res) => {
     try {
-        const userProgress = await Progress.create(req.body);
-
+        const { userID } = req.body;
+        const userProgress = await Progress.create({ user: userID });
         res.send(userProgress).status(204);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error creating user');
+        res.status(500).send('Error creating progress document');
     }
 })
 
 // Get all user's progress
-router.get('/', async (req, res) => {
+router.get('/', async (res) => {
     const progress = await Progress.find();
 
-    if (!progress) res.send('No progress found').status(404);
+    if (!progress) res.send('No user progress docs found').status(404);
     else res.send(progress).status(200);
 })
 
 // Get user's progress doc by id
-router.get('/:id', async (req, res) => {
-    const progress = await userProgress.findById(req.params.id);
+router.get('/:userID', async (req, res) => {
+    const progress = await Progress.findOne({ user: req.params.userID });
+    console.log('User progress:', progress);
 
-    if (!progress) res.send('User not found').status(404);
+    if (!progress) res.send('User progress not found').status(404);
     else res.send(progress).status(200);
 })
 
@@ -38,7 +41,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const updatedProgress = await Progress.findByIdAndUpdate(req.params.id);
 
-    if (!updatedProgress) res.send('User not found').status(404);
+    if (!updatedProgress) res.send('User progress not found').status(404);
     else {
         updatedProgress.XP = req.body.XP;
         updatedProgress.lastSubmodulePerModule = req.body.lastSubmodulePerModule;
@@ -52,7 +55,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const deletedProgress = await Progress.findByIdAndDelete(req.params.id);
 
-    if (!deletedProgress) res.send('User not found').status(404);
+    if (!deletedProgress) res.send('User progress not found').status(404);
     else {
         console.log('User progress deleted:', deletedProgress);
         res.send(deletedProgress).status(200);
