@@ -9,6 +9,8 @@ import UserForms from './pages/UserForms';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './features/users/PrivateRoute';
+import Destinations from './pages/Destinations'; // added
+import ModuleTest from './pages/ModuleTest';
 
 const App = () => {
   return (
@@ -17,13 +19,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} /> 
         <Route path="/grade-level" element={<GradeLevel />} />
         <Route path="/user-forms" element={<UserForms />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
+        <Route path="/destinations" element={<Destinations />} /> 
+        <Route path="/module-test" element={<ModuleTest />} />
       </Routes>
     </div>
   );
