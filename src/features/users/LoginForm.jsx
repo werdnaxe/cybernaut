@@ -16,14 +16,13 @@ export default function LoginForm() {
     setError(null);   // clears error on input change (when user starts typing again)
   };
 
-  // NOTE: need to make this function mesh with AuthProvider
+  // Handles user form input and submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await loginUser(form);
+      const user = await loginUser(form);   // calls loginUser from useLoginUser hook
       setError(null);
       alert('Login successful!');
-      // Look into redirecting user here
       setForm({ 
         username: '',
         password: ''

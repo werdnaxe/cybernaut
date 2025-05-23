@@ -1,6 +1,6 @@
 /* This is the SignupForm component. It will allow someone to create a user. */
 
-import React, { use, useState } from 'react'
+import { useState } from 'react'
 import { useCreateUser } from './hooks'
 
 export default function SignupForm() {
@@ -16,6 +16,7 @@ export default function SignupForm() {
     setForm(f => ({...f, [e.target.name]: e.target.value}));
   };
 
+  // Handles form submission and begins the process of creating a new user and progress document
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
