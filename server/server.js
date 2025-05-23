@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Mount user router
+// Mount all available routers
 app.use('/api/users', usersRouter);
 app.use('/api/progress', progressRouter);
 app.use('/api/modules', modulesRouter);
