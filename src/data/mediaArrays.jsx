@@ -1,5 +1,6 @@
 {/* Store videos and images in public folder */}
 
+{/* Data to be passed to scroller components */}
 export  const sampleMediaArray = [
     {
         type: 'image',
