@@ -51,7 +51,7 @@ const Header = () => {
                 {/* Display username and logout button upon user login */}
                 {user && (
                     <li>
-                        <span className="text-yellow-200 mr-4">{user.username}</span>
+                        <span className="text-yellow-200 mr-4">Hi, {user.username}</span>
                         <button onClick={logoutAction} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                             Logout
                         </button>

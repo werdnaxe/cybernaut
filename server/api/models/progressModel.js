@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-// Define the LastSubmodulePerModule sub-schema
-// This sub-schema is used to store the last submodule completed for each module
-const lastSubmodulePerModuleSchema = new mongoose.Schema({
+// Define the nextSubmoduleSchema sub-schema
+// This sub-schema is used to store the next submodule to be completed for each module
+const nextSubmoduleSchema = new mongoose.Schema({
     module: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Module",
         required: true,
     },
-    lastSubmodule: {
-        type: mongoose.Schema.Types.ObjectId,
+    nextSubmodule: {
+        type: Number,
         ref: "Submodule",
         default: 0,
     }
@@ -27,9 +27,9 @@ const progressSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
-    // ...as well as to modules and last submodule the user has completed
-    lastSubmodulePerModule: {
-        type: [ lastSubmodulePerModuleSchema ],
+    // ...as well as to modules and next submodule the user needs to complete
+    submodulePerModule: {
+        type: [ nextSubmoduleSchema ],
     }
 });
 

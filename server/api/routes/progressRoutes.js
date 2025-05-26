@@ -28,7 +28,7 @@ router.get('/', async (res) => {
     else res.send(progress).status(200);
 })
 
-// Get user's progress doc by id
+// Get user's progress doc by user id
 router.get('/:userID', async (req, res) => {
     const progress = await Progress.findOne({ user: req.params.userID });
     console.log('User progress:', progress);
@@ -37,14 +37,15 @@ router.get('/:userID', async (req, res) => {
     else res.send(progress).status(200);
 })
 
-// Update user's progress by id
-router.put('/:id', async (req, res) => {
-    const updatedProgress = await Progress.findByIdAndUpdate(req.params.id);
+// Update user's progress by user id
+router.put('/:userID', async (req, res) => {
+    const updatedProgress = await Progress.findOne({ user: req.params.userID });
+    console.log('User progress:', updatedProgress);
 
     if (!updatedProgress) res.send('User progress not found').status(404);
     else {
         updatedProgress.XP = req.body.XP;
-        updatedProgress.lastSubmodulePerModule = req.body.lastSubmodulePerModule;
+        updatedProgress.submodulePerModule = req.body.submodulePerModule;
         await updatedProgress.save();
         console.log('User progress updated:', updatedProgress);
         res.send(updatedProgress).status(200);

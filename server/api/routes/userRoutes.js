@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
     if (user) {
         const token = jwt.sign( 
             { id: user._id }, 
-            process.env.PRIVATE_ACCESS_TOKEN, 
+            process.env.PRIVATE_ACCESS_TOKEN,   // backend secret token in .env
             { expiresIn: '1h' } 
         );
         console.log('Token generated:', token);
