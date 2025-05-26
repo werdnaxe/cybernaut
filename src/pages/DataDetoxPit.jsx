@@ -2,31 +2,30 @@ import React from 'react'
 
 const DataDetoxPit = () => {
   return (
-    <div className="bg-blue-200 min-h-screen w-full flex items-center justify-center">
+    <div className="relative bg-[url('src/assets/datadetoxpath.png')] min-h-screen w-full">
       {/* Back button */}
       <button
-        className="bg-white hover:bg-grey text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl absolute top-40 left-20" onClick={() => window.location.href = '/destinations'}>
-           Back
+        className="absolute top-10 left-10 bg-white hover:bg-grey text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl"
+        onClick={() => window.location.href = '/destinations'}>
+        Back
       </button>
-      {/* Module buttons */}
-      <div className="flex flex-col items-center space-y-6">
-        <button
-          className="bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
-          Module 1
-        </button>
-        <button
-          className="bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
-          Module 2
-        </button>
-        <button
-          className="bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
-          Module 3
-        </button>
-        <button
-          className="bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
-          Module 4
-        </button>
-      </div>
+      {/* Module buttons - each with its own absolute position */}
+      <button
+        className="absolute top-80 left-150 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        Module 1
+      </button>
+      <button
+        className="absolute top-100 left-135 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        Module 2
+      </button>
+      <button
+        className="absolute top-120 left-165 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        Module 3
+      </button>
+      <button
+        className="absolute top-145 left-155 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        Module 4
+      </button>
     </div>
   )
 }
