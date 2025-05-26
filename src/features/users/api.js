@@ -12,7 +12,7 @@ export const createUser = async ({ username, email, password }) => {
 export const createProgress = async ({ userID }) => {
     const { data } = await axios.post(`${API_URL}/progress`, { userID });
     return data;
-}
+};
 
 // POST (login) user when button is clicked
 export const loginUser = async ({ username, password }) => {
@@ -25,11 +25,11 @@ export const loginUser = async ({ username, password }) => {
 
     // If valid, return user data
     return data;
-}
+};
 
 // GET (fetch) user by ID
 export const fetchUserByID = async (id) => {
-    const { data } = await axios.get(`${API_URL}/${id}`);
+    const { data } = await axios.get(`${API_URL}/users/${id}`);
     return data;
 };
 
@@ -37,22 +37,28 @@ export const fetchUserByID = async (id) => {
 export const fetchProgressByUserID = async (userID) => {
     const { data } = await axios.get(`${API_URL}/progress/${userID}`);
     return data;
-}
-
-// GET (fetch) all users
-export const fetchAllUsers = async () => {
-    const { data } = await axios.get(API_URL);
-    return data;
 };
 
 // PUT (update) user by ID
 export const updateUserByID = async (id, { username, email, password }) => {
-    const { data } = await axios.put(`${API_URL}/${id}`, { username, email, password });
+    const { data } = await axios.put(`${API_URL}/users/${id}`, { username, email, password });
     return data;
-}
+};
+
+// PUT (update) progress doc by user ID
+export const updateProgressByUserID = async (userID, { XP, submodulePerModule }) => {
+    const { data } = await axios.put(`${API_URL}/progress/${userID}`, { XP, submodulePerModule });
+    return data;
+};
 
 // DELETE user by ID
 export const deleteUserByID = async (id) => {
-    const { data } = await axios.delete(`${API_URL}/${id}`);
+    const { data } = await axios.delete(`${API_URL}/users/${id}`);
     return data;
-}
+};
+
+// DELETE progress doc by user ID
+export const deleteProgressByUserID = async (userID) => {
+    const { data } = await axios.delete(`${API_URL}/progress/${userID}`);
+    return data;
+};

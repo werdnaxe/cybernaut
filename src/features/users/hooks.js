@@ -18,34 +18,17 @@ export function useLoginUser() {
   return { loginUser };
 }
 
-// ?
-export function useLoadUser(id) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!id) return;
-    setLoading(true);
-    usersAPI.fetchUserByID(id)
-      .then(setUser)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [id]);
-  
-  return { user, loading };
-}
-
 // Create a new user and progress doc
 export function useCreateUser() {
   const createUser = useCallback(async (payload) => {
     const newUser = await usersAPI.createUser(payload);
     const newProgress = await usersAPI.createProgress({ userID: newUser._id });
-
+    
     if (!newProgress) {
       throw new Error('Failed to create progress document');
     }
-
+    
   }, [])
-
+  
   return { createUser };
 }
