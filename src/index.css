@@ -1,1 +1,29 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('./assets/fonts/Fredoka-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Zing';
+  src: url('./assets/fonts/ZingRustD2Demo-Base.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+    --font-zing: "Zing", sans-serif;
+}
+
+@layer base {
+  :root {
+    --font-fredoka: "Fredoka", sans-serif;
+    --font-zing: "Zing", sans-serif;
+  }
+}

@@ -16,13 +16,15 @@ module.exports = {
           orange: '#FBBF24',
           dark: '#1E3A8A',
           bubble: '#BFDBFE',
+          'custom-blue': '#537FB2',
         },
       },
       fontFamily: {
-        display: ['Fredoka', 'sans-serif'],
-        body: ['Poppins', 'sans-serif'],
+        fredoka: ['Fredoka', 'sans-serif'],
+        zing: ['zing', 'sans-serif'],
       },
     },
   },
+  // variants: {},
   plugins: [],
 }
