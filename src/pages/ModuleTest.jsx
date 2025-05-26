@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import '../pages/Cybernaut.css';
 import Scroller from '../components/Scroller';
-
+import Quiz from '../components/Quiz';
+import { checkpointTwo } from '../data/mediaArrays';
+import Narrator from '../components/Narrator';
+import cybernautCharacter from '../assets/standing-cybernaut.png';
 
 const ModuleTest = () => {
   const [currentSegment, setCurrentSegment] = useState(0);
@@ -9,19 +12,19 @@ const ModuleTest = () => {
 
   const moduleSegments = [
     {
-        title: "Dr. Pepper",
+        title: "A",
         content: "first stage",
-        interactive: null
+        interactive: <Scroller media={checkpointTwo} />
     },
     {
         title: "B",
         content: "second stage",
-        interactive: null
+        interactive: <Quiz options={['Cyberbullying', 'Privacy Settings', 'Algorithms', 'Digital Footprint']} />
     },
     {
         title: "C",
         content: "third stage",
-        interactive: null
+        interactive: <Narrator text="Hello, I'm Cybernaut! I'm inside of a module!" image={cybernautCharacter} />
     },
     {
         title: "D",
