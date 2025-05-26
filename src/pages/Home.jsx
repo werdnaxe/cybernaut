@@ -3,18 +3,13 @@ import axios from 'axios';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import './Cybernaut.css';
+import Narrator from '../components/Narrator';
 
 function Home() {
-  // state for creating new user data (React controls the value of the input field)
   const [newUsername, setNewUserName] = useState('');
-  
-  // state for fetching existing user data
   const [data, setData] = useState([]);
-
-  // State for controlling continue button visibility
   const [showContinueButton, setShowContinueButton] = useState(true);
 
-  // POST (create) user when button is clicked
   const createUser = async () => {
     try {
       const payload = { 
@@ -31,7 +26,6 @@ function Home() {
     }
   };
 
-  // GET user by id
   const fetchUserByID = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/users/681bef98aae7a2a61ceed06f');
@@ -42,30 +36,25 @@ function Home() {
     }
   };
 
-  // React hook to fetch data upon initial rendering of component (this is a side effect)
   useEffect(() => {
     fetchUserByID();
   }, []);
 
-  // handle continue button click
   const handleContinueClick = () => {
     setShowContinueButton(false);
   };
 
   return (
     <div
-      className="h-screen bg-cover bg-center relative overflow-hidden"
+      className="min-h-screen bg-cover bg-center relative overflow-auto"
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center bottom',
-        minHeight: '100vh'
       }}
     >
-      <h1>
-        Hello CYBERNAUT
-      </h1>
-      
+      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
+
       {/* POST widget */}
       <div className="mb-4 p-4">
         <input
@@ -90,45 +79,31 @@ function Home() {
         <p>Password: {data.password}</p>
       </div>
 
-      {/* Character Container */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" 
-           style={{ width: "33%", marginTop: "20px" }}>
-        <div className="relative">
-          {/* Speech Bubble */}
-          <div className="absolute speech-bubble-custom bg-blue-200 rounded-3xl p-3 w-64 z-20"
-               style={{ 
-                 top: "-60px", 
-                 right: "-80px",
-               }}>
-            <p className="font-bold text-lg text-center">HI! I'M YOUR CYBERNAUT.</p>
-          </div>
-          
-          {/* Character Image */}
-          <img 
-            src={cybernautCharacter} 
-            alt="Cybernaut Character" 
-            className="cybernaut-character mx-auto"
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
+      {/* Narrator and Buttons */}
+      <div className="flex flex-col items-center justify-center relative z-10 mt-[-20vh]">
+        <Narrator
+          text="HI! I'M YOUR CYBERNAUT."
+          image={cybernautCharacter}
+          float
+        />
+
+        {/* Navigation Buttons */}
+        <div className="absolute z-22 top-[40%] left-[61%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+            EDUCATORS
+          </button>
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+            STUDENTS
+          </button>
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+            CUSTOMIZE YOUR CYBERNAUT
+          </button>
         </div>
       </div>
-      
-      {/* Navigation Buttons */}
-      <div className="absolute top-1/2 right-16 transform -translate-y-1/2 flex flex-col space-y-4">
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-          EDUCATORS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-          STUDENTS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-          CUSTOMIZE YOUR CYBERNAUT
-        </button>
-      </div>
-      
+
       {/* Continue Button */}
       {showContinueButton && (
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+        <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2">
           <button 
             onClick={handleContinueClick}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg"
