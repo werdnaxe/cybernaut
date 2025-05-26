@@ -24,7 +24,7 @@ const ModuleTest = () => {
     {
         title: "C",
         content: "third stage",
-        interactive: <Narrator text="Hello, I'm Cybernaut! I'm inside of a module!" image={cybernautCharacter} />
+        interactive: null
     },
     {
         title: "D",
