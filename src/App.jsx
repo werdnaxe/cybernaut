@@ -9,6 +9,8 @@ import Destinations from './pages/Destinations'; // added
 import MtMystery from './pages/MtMystery'; // added
 import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
+import ModuleTest from './pages/ModuleTest';
+
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/mysterymountain" element={<MtMystery />} />
         <Route path="/SocialMediaPassage" element={<SocialMediaPassage />} />
         <Route path="/datadetoxpit" element={<DataDetoxPit />} />
+        <Route path="/destinations" element={<Destinations />} /> 
+        <Route path="/module-test" element={<ModuleTest />} />
       </Routes>
     </div>
   );
