@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../pages/Cybernaut.css';
+import Scroller from '../components/Scroller';
 
 
 const ModuleTest = () => {
@@ -8,44 +9,54 @@ const ModuleTest = () => {
 
   const moduleSegments = [
     {
-        title: "A",
-        content: "first stage"
+        title: "Dr. Pepper",
+        content: "first stage",
+        interactive: null
     },
     {
         title: "B",
-        content: "second stage"
+        content: "second stage",
+        interactive: null
     },
     {
         title: "C",
-        content: "third stage"
+        content: "third stage",
+        interactive: null
     },
     {
         title: "D",
-        content: "fourth stage"
+        content: "fourth stage",
+        interactive: null
     },
     {
         title: "E",
-        content: "fifth stage"
+        content: "fifth stage",
+        interactive: null
     },
     {
         title: "F",
-        content: "sixth stage"
+        content: "sixth stage",
+        interactive: null
     },
     {
         title: "G",
-        content: "seventh stage"
+        content: "seventh stage",
+        interactive: null
     },
     {
         title: "H",
-        content: "eigth stage"
+        content: "eigth stage",
+        interactive: null
     },
     {
         title: "I",
-        content: "ninth stage"
+        content: "ninth stage",
+        interactive: null
     },
     {
         title: "J",
-        content: "tenth stage"
+        content: "tenth stage",
+        interactive: null
     }
     
   ];
@@ -80,11 +91,16 @@ const ModuleTest = () => {
             <p className="text-lg">
               {moduleSegments[currentSegment].content}
             </p>
-            
-            <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-              <p className="italic">
-                This is where additional interactive content, exercises, or resources for segment {currentSegment + 1} would go.
-              </p>
+            <div className="mt-8">
+              {moduleSegments[currentSegment].interactive ? (
+                moduleSegments[currentSegment].interactive
+              ) : (
+                <div className="p-4 bg-blue-50 rounded-lg">
+                  <p className="italic">
+                    This is where additional interactive content, exercises, or resources for segment {currentSegment + 1} would go.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
