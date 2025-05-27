@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import '../pages/Cybernaut.css';
-<<<<<<< HEAD
 import Scroller from '../components/Scroller';
 import Quiz from '../components/Quiz';
 import { checkpointTwo } from '../data/mediaArrays';
 import Narrator from '../components/Narrator';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
-=======
 import { useAuthContext } from '../features/users/AuthProvider';
-
->>>>>>> server-dev
 
 const ModuleTest = () => {
   const [currentSegment, setCurrentSegment] = useState(0);

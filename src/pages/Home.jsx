@@ -5,96 +5,26 @@ import './Cybernaut.css';
 import Narrator from '../components/Narrator';
 
 function Home() {
-<<<<<<< HEAD
-  const [newUsername, setNewUserName] = useState('');
-  const [data, setData] = useState([]);
-  const [showContinueButton, setShowContinueButton] = useState(true);
-
-  const createUser = async () => {
-    try {
-      const payload = { 
-        username: newUsername, 
-        email: `${newUsername}@example.com`,
-        password: 'defaultpassword' 
-      };
-      const response = await axios.post('http://localhost:5000/api/users', payload);
-      const newUser = response.data;
-      console.log('User created:', newUser);
-      setNewUserName('');
-    } catch (error) {
-      console.error('Error creating user:', error);
-    }
-  };
-
-  const fetchUserByID = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/users/681bef98aae7a2a61ceed06f');
-      setData(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserByID();
-  }, []);
-
-=======
   // State for controlling continue button visibility
   const [showContinueButton, setShowContinueButton] = useState(true);
 
   // handle continue button click
->>>>>>> server-dev
   const handleContinueClick = () => {
     setShowContinueButton(false);
   };
 
   return (
-<<<<<<< HEAD
     <div
       className="min-h-screen bg-cover bg-center relative overflow-auto"
-=======
-    <div 
-      className="h-screen bg-cover bg-center relative overflow-hidden"
->>>>>>> server-dev
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center bottom',
       }}
     >
-<<<<<<< HEAD
-      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
-
-      {/* POST widget */}
-      <div className="mb-4 p-4">
-        <input
-          type="text"
-          value={newUsername}
-          onChange={e => setNewUserName(e.target.value)}
-          placeholder="Enter new username"
-          className="border border-gray-300 rounded px-4 py-2 mr-2"
-        />
-        <button
-          onClick={createUser}
-          className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
-        >
-          Create User
-        </button>
-      </div>
-
-      {/* Fetched user data */}
-      <div className="text-white p-4">
-        <p>Username: {data.username}</p>
-        <p>Email: {data.email}</p>
-        <p>Password: {data.password}</p>
-      </div>
-=======
       <header className="p-6 flex justify-between items-center">
         <h1>Hello CYBERNAUT</h1>
       </header>
->>>>>>> server-dev
 
       {/* Narrator and Buttons */}
       <div className="flex flex-col items-center justify-center relative z-10 mt-[-20vh]">

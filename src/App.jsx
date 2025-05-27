@@ -15,7 +15,6 @@ import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
 import ModuleTest from './pages/ModuleTest';
 
-
 const App = () => {
   return (
     <div>
@@ -25,18 +24,15 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/grade-level" element={<GradeLevel />} />
-<<<<<<< HEAD
         <Route path="/destinations" element={<Destinations />} />
         <Route path="/mysterymountain" element={<MtMystery />} />
         <Route path="/SocialMediaPassage" element={<SocialMediaPassage />} />
         <Route path="/datadetoxpit" element={<DataDetoxPit />} />
-=======
         <Route path="/user-forms" element={<UserForms />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
->>>>>>> server-dev
         <Route path="/destinations" element={<Destinations />} /> 
         <Route path="/module-test" element={<ModuleTest />} />
       </Routes>

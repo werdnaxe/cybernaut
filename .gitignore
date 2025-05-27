@@ -27,4 +27,4 @@ dist-ssr
 .env
 
 # Other files
-*:Zone.Identifier
+*Zone.Identifier*
