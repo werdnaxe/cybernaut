@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import './Cybernaut.css';
 import Narrator from '../components/Narrator';
 
 function Home() {
+<<<<<<< HEAD
   const [newUsername, setNewUserName] = useState('');
   const [data, setData] = useState([]);
   const [showContinueButton, setShowContinueButton] = useState(true);
@@ -40,19 +40,31 @@ function Home() {
     fetchUserByID();
   }, []);
 
+=======
+  // State for controlling continue button visibility
+  const [showContinueButton, setShowContinueButton] = useState(true);
+
+  // handle continue button click
+>>>>>>> server-dev
   const handleContinueClick = () => {
     setShowContinueButton(false);
   };
 
   return (
+<<<<<<< HEAD
     <div
       className="min-h-screen bg-cover bg-center relative overflow-auto"
+=======
+    <div 
+      className="h-screen bg-cover bg-center relative overflow-hidden"
+>>>>>>> server-dev
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center bottom',
       }}
     >
+<<<<<<< HEAD
       <h1 className="text-white p-4">Hello CYBERNAUT</h1>
 
       {/* POST widget */}
@@ -78,6 +90,11 @@ function Home() {
         <p>Email: {data.email}</p>
         <p>Password: {data.password}</p>
       </div>
+=======
+      <header className="p-6 flex justify-between items-center">
+        <h1>Hello CYBERNAUT</h1>
+      </header>
+>>>>>>> server-dev
 
       {/* Narrator and Buttons */}
       <div className="flex flex-col items-center justify-center relative z-10 mt-[-20vh]">

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import '../pages/Cybernaut.css';
+<<<<<<< HEAD
 import Scroller from '../components/Scroller';
 import Quiz from '../components/Quiz';
 import { checkpointTwo } from '../data/mediaArrays';
 import Narrator from '../components/Narrator';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
+=======
+import { useAuthContext } from '../features/users/AuthProvider';
+
+>>>>>>> server-dev
 
 const ModuleTest = () => {
   const [currentSegment, setCurrentSegment] = useState(0);
+  const { user, progress, updateProgress } = useAuthContext();
   const totalSegments = 10;
 
   const moduleSegments = [
@@ -66,8 +72,28 @@ const ModuleTest = () => {
 
   const handleNext = () => {
     if (currentSegment < totalSegments - 1) {
-        setCurrentSegment(currentSegment + 1);
+        setCurrentSegment(currentSegment + 1);   // currentSegment will not show incremented until the next render cycle
     }
+
+    // Update progress document with new XP and last submodule completed
+    if (user) {
+      console.log("Client user ID:", user._id);
+        const moduleName = "Social Media Effects";   // store module name so last completed submodule can be overwritten every time user completes a submodule
+        const updatedSubmodules = [...progress.submodulePerModule];
+        const currentModule = updatedSubmodules.find(sub => sub.module === moduleName);
+
+        if (currentModule) {   // if the module exists and is found
+          currentModule.nextSubmodule = currentSegment + 1;   // update the next submodule to be completed
+        } else {   // if the module does not exist, create a new entry for it
+          updatedSubmodules.push({ module: moduleName, nextSubmodule: currentSegment + 1 });
+        }
+
+        // Update progress doc with new XP and next submodule to be completed
+        updateProgress(user._id, { 
+          XP: progress.XP + 1,
+          submodulePerModule: updatedSubmodules
+        });
+      }
   };
 
   const handlePrevious = () => {

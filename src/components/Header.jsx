@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuthContext } from '../features/users/AuthProvider';
 
 const Header = () => {
+  const { user, logoutAction } = useAuthContext();
+
   return (
     <header className="bg-blue-800 text-blue-100 py-10">
         <nav className="container mx-auto flex justify-between items-center">
@@ -25,6 +28,35 @@ const Header = () => {
                 <li>
                     <NavLink to="/module-test" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:test-gray-300'}>Test Module</NavLink>
                 </li>
+
+                {/* Display user forms only if user is not logged in */}
+                {!user && (
+                    <li>
+                        <NavLink to="/user-forms" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Signup/Login</NavLink>
+                    </li>
+                )}
+
+                {/* Display Profile and Dashboard only upon user login */}
+                {user && (
+                    <>
+                        <li>
+                            <NavLink to="/profile" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Profile</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Dashboard</NavLink>
+                        </li>
+                    </>
+                )}
+                
+                {/* Display username and logout button upon user login */}
+                {user && (
+                    <li>
+                        <span className="text-yellow-200 mr-4">Hi, {user.username}</span>
+                        <button onClick={logoutAction} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                            Logout
+                        </button>
+                    </li>
+                )}
             </ul>
         </nav>
     </header>
