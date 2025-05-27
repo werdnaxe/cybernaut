@@ -22,20 +22,18 @@ function Home() {
         backgroundPosition: 'center bottom',
       }}
     >
-      <header className="p-6 flex justify-between items-center">
-        <h1>Hello CYBERNAUT</h1>
-      </header>
+      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
 
       {/* Narrator and Buttons */}
-      <div className="flex flex-col items-center justify-center relative z-10 mt-[-20vh]">
+      <div className="flex flex-col items-center justify-center relative z-10 mt-20">
         <Narrator
           text="HI! I'M YOUR CYBERNAUT."
           image={cybernautCharacter}
           float
         />
 
-        {/* Navigation Buttons */}
-        <div className="absolute z-22 top-[40%] left-[61%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
+      {/* Navigation Buttons */}
+        <div className="absolute z-22 top-[25%] left-[62%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
           <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
             EDUCATORS
           </button>
@@ -46,19 +44,6 @@ function Home() {
             CUSTOMIZE YOUR CYBERNAUT
           </button>
         </div>
-      </div>
-      
-      {/* Navigation Buttons */}
-      <div className="absolute top-1/2 right-16 transform -translate-y-1/2 flex flex-col space-y-4">
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          EDUCATORS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          STUDENTS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          CUSTOMIZE YOUR CYBERNAUT
-        </button>
       </div>
       
       {/* Continue Button */}
