@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div className="min-h-screen w-full relative text-center font-zing bg-[#275481]">
       <div className="p-6">
-        <h1 className="text-3xl text-white font-bold ">About</h1>
+        <h1 className="text-3xl text-black font-bold ">About</h1>
       </div>
 
       {/* Quiz component */}
