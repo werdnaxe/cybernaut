@@ -9,9 +9,9 @@ const About = () => {
   };
 
   return (
-    <div className="relative text-center">
+    <div className="relative text-center bg-[#275481] min-h-screen">
       <div className="p-6">
-        <h1 className="text-3xl font-bold">About</h1>
+        <h1 className="text-3xl font-bold font-zing">About</h1>
       </div>
 
       {/* Quiz component */}
