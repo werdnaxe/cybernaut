@@ -4,7 +4,8 @@ import cybernautCharacter from '../assets/standing-cybernaut.png';
 
 const Contact = () => {
   return (
-      <div>
+    
+      <div className="min-h-screen w-full relative text-center bg-[#275481] font-zing">
         <Narrator
           text="Hello, I'm Cybernaut! Want to contact us?"
           image={cybernautCharacter}

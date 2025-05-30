@@ -53,10 +53,10 @@ function Home() {
         backgroundPosition: 'center bottom',
       }}
     >
-      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
+      <h1 className="text-white font-zing p-4">Hello CYBERNAUT</h1>
 
       {/* POST widget */}
-      <div className="mb-4 p-4">
+      <div className="mb-4 p-4 font-zing">
         <input
           type="text"
           value={newUsername}
@@ -66,21 +66,21 @@ function Home() {
         />
         <button
           onClick={createUser}
-          className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
+          className="bg-blue-500 text-white font-zing rounded px-4 py-2 hover:bg-blue-600"
         >
           Create User
         </button>
       </div>
 
       {/* Fetched user data */}
-      <div className="text-white p-4">
+      <div className="text-white font-zing p-4">
         <p>Username: {data.username}</p>
         <p>Email: {data.email}</p>
         <p>Password: {data.password}</p>
       </div>
 
       {/* Narrator and Buttons */}
-      <div className="flex flex-col items-center justify-center relative z-10 mt-[-20vh]">
+      <div className="flex flex-col items-center font-zing justify-center relative z-10 mt-[-20vh]">
         <Narrator
           text="HI! I'M YOUR CYBERNAUT."
           image={cybernautCharacter}
@@ -89,19 +89,19 @@ function Home() {
 
         {/* Navigation Buttons */}
         <div className="absolute z-22 top-[40%] left-[61%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             EDUCATORS
           </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             STUDENTS
           </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             CUSTOMIZE YOUR CYBERNAUT
           </button>
         </div>
       </div>
-      
-      {/* Navigation Buttons */}
+      {/*
+      Navigation Buttons
       <div className="absolute top-1/2 right-16 transform -translate-y-1/2 flex flex-col space-y-4">
         <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
           EDUCATORS
@@ -113,13 +113,14 @@ function Home() {
           CUSTOMIZE YOUR CYBERNAUT
         </button>
       </div>
+      */}
       
       {/* Continue Button */}
       {showContinueButton && (
         <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2">
           <button 
             onClick={handleContinueClick}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg"
+            className="bg-blue-600 hover:bg-blue-700 font-zing text-white font-bold py-3 px-8 rounded-lg"
           >
             Click to Continue
           </button>
