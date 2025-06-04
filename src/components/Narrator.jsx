@@ -2,13 +2,13 @@ import React from 'react';
 
 const Narrator = ({ text, image, float }) => {
   return (
-    <div className="w-[80vw] h-[80vh] mx-auto flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center">
       {/* Container flipped with row-reverse */}
-      <div className="flex flex-row-reverse items-start gap-0 h-[80%]">
+      <div className="flex flex-row-reverse items-end gap-0 w-full h-full px-4 -translate-y-40 -translate-x-20">
         {/* Speech Bubble */}
         <div
-          className="relative bg-blue-200 rounded-3xl px-6 py-4 text-black font-semibold text-base shadow-md max-w-[40vw] min-w-[200px]"
-          style={{ fontSize: '2rem', alignSelf: 'flex-start' }}
+          className="relative bg-blue-200 rounded-3xl px-6 py-4 text-black font-semibold text-base shadow-md w-full max-w-[500px] -ml-10"
+          style={{ fontSize: '1.25rem' }}
         >
         <p>{text}</p>
 
@@ -32,7 +32,8 @@ const Narrator = ({ text, image, float }) => {
         <img
           src={image}
           alt="Narrator Character"
-          className={`h-full object-contain z-10 ${float ? 'cybernaut-character' : ''}`}
+          className={`h-[500px] object-contain z-10 ${float ? 'cybernaut-character' : ''}`}
+          style={{ transform: 'translateY(300px)' }}
         />
       </div>
     </div>
