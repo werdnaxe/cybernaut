@@ -22,8 +22,6 @@ function Home() {
         backgroundPosition: 'center bottom',
       }}
     >
-      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
-
       {/* Narrator and Buttons */}
       <div className="flex flex-col items-center justify-center relative z-10 mt-20">
         <Narrator

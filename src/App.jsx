@@ -15,6 +15,8 @@ import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
 import ModuleTest from './pages/ModuleTest';
 
+import SMSPModule1 from './pages/modules/SMSPModule1';
+
 const App = () => {
   return (
     <div>
@@ -35,6 +37,8 @@ const App = () => {
         </Route>
         <Route path="/destinations" element={<Destinations />} /> 
         <Route path="/module-test" element={<ModuleTest />} />
+
+        <Route path="/SMSPModule1" element={<SMSPModule1 />} />
       </Routes>
     </div>
   );
