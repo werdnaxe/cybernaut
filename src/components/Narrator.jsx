@@ -4,10 +4,10 @@ const Narrator = ({ text, image, float }) => {
   return (
     <div className="w-full h-full flex items-center justify-center">
       {/* Container flipped with row-reverse */}
-      <div className="flex flex-row-reverse items-end gap-0 w-full h-full px-4 -translate-y-40 -translate-x-20">
+      <div className="flex flex-row-reverse items-end gap-0 w-full h-full px-4 -translate-y-40 -translate-x-10">
         {/* Speech Bubble */}
         <div
-          className="relative bg-blue-200 rounded-3xl px-6 py-4 text-black font-semibold text-base shadow-md w-full max-w-[500px] -ml-10"
+          className="relative bg-blue-200 rounded-3xl px-6 py-4 text-black font-semibold text-base shadow-md w-full max-w-[500px] -ml-10 -translate-y-50"
           style={{ fontSize: '1.25rem' }}
         >
         <p>{text}</p>
@@ -33,7 +33,7 @@ const Narrator = ({ text, image, float }) => {
           src={image}
           alt="Narrator Character"
           className={`h-[500px] object-contain z-10 ${float ? 'cybernaut-character' : ''}`}
-          style={{ transform: 'translateY(300px)' }}
+          style={{ transform: 'translateY(200px)' }}
         />
       </div>
     </div>
