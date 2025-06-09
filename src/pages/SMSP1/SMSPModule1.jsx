@@ -257,13 +257,13 @@ const SMSPModule1 = () => {
     
     // Don't allow proceeding if validation fails
     if (!canProceed()) {
-      console.log('❌ Cannot proceed - interaction required');
+      console.log('Cannot proceed - interaction required');
       return;
     }
     
     // SAFETY CHECK: If we're at or past the last segment, navigate immediately
     if (currentSegment >= moduleSegments.length - 1) {
-      console.log('🚀 NAVIGATING - at or past last segment');
+      console.log('NAVIGATING - at or past last segment');
       navigate('/SocialMediaPassage');
       return;
     }
@@ -315,7 +315,7 @@ const SMSPModule1 = () => {
       
       // If next segment would be out of bounds, navigate
       if (nextSegment >= moduleSegments.length) {
-        console.log('🚀 NAVIGATING - outcome leads past end');
+        console.log('NAVIGATING - outcome leads past end');
         navigate('/SocialMediaPassage');
         return;
       }
@@ -337,7 +337,7 @@ const SMSPModule1 = () => {
       
       // If we've reached the end, navigate
       if (nextIndex >= moduleSegments.length) {
-        console.log('🚀 NAVIGATING - reached end through good path');
+        console.log('NAVIGATING - reached end through good path');
         navigate('/SocialMediaPassage');
         return;
       }
@@ -349,7 +349,7 @@ const SMSPModule1 = () => {
 
     // Check for specific ending segments by title
     if (isAtModuleEnd()) {
-      console.log('🚀 NAVIGATING - end segment reached by title');
+      console.log('NAVIGATING - end segment reached by title');
       navigate('/SocialMediaPassage');
       return;
     }
@@ -361,7 +361,7 @@ const SMSPModule1 = () => {
       setCurrentSegment(nextSegment);
       updateActualProgress(nextSegment);
     } else {
-      console.log('🚀 NAVIGATING - reached final segment fallback');
+      console.log('NAVIGATING - reached final segment fallback');
       navigate('/SocialMediaPassage');
     }
   };

@@ -15,7 +15,8 @@ import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
 import ModuleTest from './pages/ModuleTest';
 
-import SMSPModule1 from './pages/modules/SMSPModule1';
+import SMSPModule1 from './pages/SMSP1/SMSPModule1';
+import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/module-test" element={<ModuleTest />} />
 
         <Route path="/SMSPModule1" element={<SMSPModule1 />} />
+        <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
       </Routes>
     </div>
   );

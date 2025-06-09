@@ -23,7 +23,9 @@ const SocialMediaPassage = () => {
       </button>
       
       <button
-        className="absolute top-120 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl">
+        className="absolute top-120 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl"
+        onClick={() => window.location.href = '/skeleton-smsp2'}
+      >
         Module 2
       </button>
       
