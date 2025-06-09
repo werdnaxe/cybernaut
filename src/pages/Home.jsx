@@ -1,60 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
-import './Cybernaut.css';
 import Narrator from '../components/Narrator';
+import './Cybernaut.css';
 
 function Home() {
-  // State for controlling continue button visibility
-  const [showContinueButton, setShowContinueButton] = useState(true);
+  const navigate = useNavigate();
 
-  // handle continue button click
   const handleContinueClick = () => {
-    setShowContinueButton(false);
+    navigate('/destinations'); // Navigate to destinations page
   };
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative overflow-auto"
+      className="min-h-screen bg-cover bg-center relative overflow-hidden"
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center bottom',
+        backgroundPosition: 'center',
       }}
     >
-      {/* Narrator and Buttons */}
-      <div className="flex flex-col items-center justify-center relative z-10 mt-20">
-        <Narrator
-          text="HI! I'M YOUR CYBERNAUT."
-          image={cybernautCharacter}
-          float
-        />
+      {/* Main content container */}
+      <div className="h-screen flex items-center justify-center relative">
+        
+        {/* Narrator Component - Scaled up for homepage with zoom-responsive scaling */}
+        <div 
+          style={{
+            transform: 'scale(2.0)',
+            transformOrigin: 'center',
+            maxWidth: '95vw',     // Allow it to be bigger
+            maxHeight: '90vh'     // Allow it to be taller
+          }}
+        >
+          <Narrator
+            text="HI! I'M YOUR CYBERNAUT."
+            image={cybernautCharacter}
+            float
+          />
+        </div>
 
-      {/* Navigation Buttons */}
-        <div className="absolute z-22 top-[25%] left-[62%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-            EDUCATORS
-          </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-            STUDENTS
-          </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
-            CUSTOMIZE YOUR CYBERNAUT
+        {/* CONTINUE button - positioned bottom right */}
+        <div 
+          className="absolute"
+          style={{
+            bottom: '10%',
+            right: '8%'
+          }}
+        >
+          <button 
+            onClick={handleContinueClick}
+            className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-zing font-bold py-3 px-7 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+
+          >
+            CONTINUE
           </button>
         </div>
       </div>
-      
-      {/* Continue Button */}
-      {showContinueButton && (
-        <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2">
-          <button 
-            onClick={handleContinueClick}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg"
-          >
-            Click to Continue
-          </button>
-        </div>
-      )}
     </div>
   );
 }
