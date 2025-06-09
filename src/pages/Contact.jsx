@@ -2,6 +2,7 @@ import React from 'react'
 import Narrator from '../components/Narrator';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import emptyProfile from '../assets/emptyprofile.jpg';
+import linneaProfile from '../assets/linneaprofilepicture.jpg';
 
 const Contact = () => {
   return (
@@ -44,10 +45,10 @@ const Contact = () => {
 
           {/*Dev 4*/}
           <div className="flex items-center space-x-4 bg-white p-4 rounded-lg w-full max-w-3xl">
-            <img src={emptyProfile} alt="Profile picture" className="w-24 h-24 rounded-full object-cover"/>
+            <img src={linneaProfile} alt="Profile picture" className="w-24 h-24 rounded-full object-cover"/>
             <div className="text-left">
               <h3 className="text-2xl font-bold text-[#275481]">Linnea Olix</h3>
-              <h4 className="text-lg text-black">example@email.com | (123)-456-7890</h4>
+              <h4 className="text-lg text-black">olixl@wwu.edu</h4>
               <p className="text-sm">Frontend developer</p>
             </div>
           </div>
