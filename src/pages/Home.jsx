@@ -22,10 +22,10 @@ function Home() {
         backgroundPosition: 'center bottom',
       }}
     >
-      <h1 className="text-white p-4">Hello CYBERNAUT</h1>
+      <h1 className="text-white font-zing p-4">Hello CYBERNAUT</h1>
 
       {/* Narrator and Buttons */}
-      <div className="flex flex-col items-center justify-center relative z-10 mt-20">
+      <div className="flex font-zing flex-col items-center justify-center relative z-10 mt-20">
         <Narrator
           text="HI! I'M YOUR CYBERNAUT."
           image={cybernautCharacter}
@@ -34,13 +34,13 @@ function Home() {
 
       {/* Navigation Buttons */}
         <div className="absolute z-22 top-[25%] left-[62%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             EDUCATORS
           </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             STUDENTS
           </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold py-3 px-10 rounded-full w-72 text-center option-button text-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
             CUSTOMIZE YOUR CYBERNAUT
           </button>
         </div>
@@ -51,7 +51,7 @@ function Home() {
         <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2">
           <button 
             onClick={handleContinueClick}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold font-zing py-3 px-8 rounded-lg"
           >
             Click to Continue
           </button>
