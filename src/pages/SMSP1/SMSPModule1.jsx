@@ -10,7 +10,7 @@ import Narrator from '../../components/Narrator';
 import cybernautCharacter from '../../assets/standing-cybernaut.png';
 import winnerCybernaut from './winner-cyb.png';
 import { useAuthContext } from '../../features/users/AuthProvider';
-import introVideo from './intro.MP4';
+import introVideo from "./intro.mp4";
 import TextInputSubmission from '../../components/TextInputSubmission';
 
 import setNameImage from './set-name.png.PNG';

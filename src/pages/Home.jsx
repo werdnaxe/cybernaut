@@ -50,9 +50,7 @@ function Home() {
         >
           <button 
             onClick={handleContinueClick}
-            className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-zing font-bold py-3 px-7 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
-
-          >
+            className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-zing font-bold py-3 px-7 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
             CONTINUE
           </button>
         </div>
