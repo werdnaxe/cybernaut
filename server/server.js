@@ -4,9 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import usersRouter from './api/routes/userRoutes.js';
 import progressRouter from './api/routes/progressRoutes.js'
-import modulesRouter from './api/routes/moduleRoutes.js';
-import submodulesRouter from './api/routes/submoduleRoutes.js';
-import quizzesRouter from './api/routes/quizRoutes.js';
+import authRouter from './api/routes/authRoutes.js';
 import connectDB from './db/conn.js';
 connectDB();
 
@@ -17,11 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 // Mount all available routers
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/progress', progressRouter);
-app.use('/api/modules', modulesRouter);
-app.use('/api/submodules', submodulesRouter);
-app.use('/api/quizzes', quizzesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

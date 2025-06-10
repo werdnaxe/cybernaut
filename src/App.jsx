@@ -14,6 +14,7 @@ import MtMystery from './pages/MtMystery'; // added
 import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
 import ModuleTest from './pages/ModuleTest';
+import VerifyAccount from './features/users/VerifyAccount';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         </Route>
         <Route path="/destinations" element={<Destinations />} /> 
         <Route path="/module-test" element={<ModuleTest />} />
+        <Route path="/verify-account" element={<VerifyAccount />} />
       </Routes>
     </div>
   );

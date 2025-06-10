@@ -2,6 +2,7 @@
 
 import express from 'express';
 import Progress from '../models/progressModel.js';
+import authenticateToken from '../authMiddleware.js';
 
 // To connect to database
 import db from '../../db/conn.js';
@@ -20,14 +21,6 @@ router.post('/', async (req, res) => {
     }
 })
 
-// Get all user's progress
-router.get('/', async (res) => {
-    const progress = await Progress.find();
-
-    if (!progress) res.send('No user progress docs found').status(404);
-    else res.send(progress).status(200);
-})
-
 // Get user's progress doc by user id
 router.get('/:userID', async (req, res) => {
     const progress = await Progress.findOne({ user: req.params.userID });
@@ -38,7 +31,7 @@ router.get('/:userID', async (req, res) => {
 })
 
 // Update user's progress by user id
-router.put('/:userID', async (req, res) => {
+router.put('/:userID', authenticateToken, async (req, res) => {
     const updatedProgress = await Progress.findOne({ user: req.params.userID });
     console.log('User progress:', updatedProgress);
 
@@ -53,7 +46,7 @@ router.put('/:userID', async (req, res) => {
 })
 
 // Delete user's progress doc by id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
     const deletedProgress = await Progress.findByIdAndDelete(req.params.id);
 
     if (!deletedProgress) res.send('User progress not found').status(404);
