@@ -19,17 +19,11 @@ const Header = () => {
                 <li className="font-zing">
                     <NavLink to="/contact" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Contact</NavLink>
                 </li>
-                {/*Commenting this out
-                <li>
-                    <NavLink to="/grade-level" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Grade</NavLink>
-                </li>
-                */}
+                
                 <li>
                     <NavLink to="/destinations" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:text-gray-300'}>Destinations</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/module-test" className={({ isActive }) => isActive ? 'font-bold text-yellow-200' : 'hover:test-gray-300'}>Test Module</NavLink>
-                </li>
+                
 
                 {/* Display user forms only if user is not logged in */}
                 {!user && (
