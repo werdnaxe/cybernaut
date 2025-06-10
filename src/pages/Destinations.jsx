@@ -2,7 +2,7 @@ import React from 'react';
 
 const Destinations = () => {
   return (
-    <div className="bg-[url('src/assets/destinationsimage.png')] h-[1000px] flex justify-center items-center p-5">
+    <div className="bg-[url('src/assets/destinationsimage.png')] h-[1000px] flex justify-center items-center p-5 relative">
         <div className="flex flex-row items-center space-y-5">
             <button
                 className="bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl absolute top-110 left-160" onClick={() => window.location.href = '/mysterymountain'}>
