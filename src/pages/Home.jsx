@@ -29,11 +29,11 @@ function Home() {
           style={{
             transform: 'scale(2.0)',
             transformOrigin: 'center',
-            maxWidth: '95vw',     // Allow it to be bigger
-            maxHeight: '90vh'     // Allow it to be taller
+            maxWidth: '95vw',
+            maxHeight: '90vh'
           }}
         >
-          <NarratorH
+          <Narrator
             text="HI! I'M YOUR CYBERNAUT."
             image={cybernautCharacter}
             float
