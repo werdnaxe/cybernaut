@@ -20,7 +20,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        fredoka: ['Fredoka', 'sans-serif'],
+        // fredoka: ['Fredoka', 'sans-serif'],
         zing: ['zing', 'sans-serif'],
       },
     },
