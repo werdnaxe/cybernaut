@@ -1,131 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
-import './Cybernaut.css';
 import Narrator from '../components/Narrator';
+import './Cybernaut.css';
 
 function Home() {
-  const [newUsername, setNewUserName] = useState('');
-  const [data, setData] = useState([]);
-  const [showContinueButton, setShowContinueButton] = useState(true);
-
-  const createUser = async () => {
-    try {
-      const payload = { 
-        username: newUsername, 
-        email: `${newUsername}@example.com`,
-        password: 'defaultpassword' 
-      };
-      const response = await axios.post('http://localhost:5000/api/users', payload);
-      const newUser = response.data;
-      console.log('User created:', newUser);
-      setNewUserName('');
-    } catch (error) {
-      console.error('Error creating user:', error);
-    }
-  };
-
-  const fetchUserByID = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/users/681bef98aae7a2a61ceed06f');
-      setData(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserByID();
-  }, []);
+  const navigate = useNavigate();
 
   const handleContinueClick = () => {
-    setShowContinueButton(false);
+    navigate('/destinations'); // Navigate to destinations page
   };
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative overflow-auto"
+      className="min-h-screen bg-cover bg-center relative overflow-hidden"
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center bottom',
+        backgroundPosition: 'center',
       }}
     >
-      <h1 className="text-white font-zing p-4">Hello CYBERNAUT</h1>
-
-      {/* POST widget */}
-      <div className="mb-4 p-4 font-zing">
-        <input
-          type="text"
-          value={newUsername}
-          onChange={e => setNewUserName(e.target.value)}
-          placeholder="Enter new username"
-          className="border border-gray-300 rounded px-4 py-2 mr-2"
-        />
-        <button
-          onClick={createUser}
-          className="bg-blue-500 text-white font-zing rounded px-4 py-2 hover:bg-blue-600"
+      {/* Main content container */}
+      <div className="h-screen flex items-center justify-center relative">
+        
+        {/* Narrator Component - Scaled up for homepage with zoom-responsive scaling */}
+        <div 
+          style={{
+            transform: 'scale(2.0)',
+            transformOrigin: 'center',
+            maxWidth: '95vw',     // Allow it to be bigger
+            maxHeight: '90vh'     // Allow it to be taller
+          }}
         >
-          Create User
-        </button>
-      </div>
-
-      {/* Fetched user data */}
-      <div className="text-white font-zing p-4">
-        <p>Username: {data.username}</p>
-        <p>Email: {data.email}</p>
-        <p>Password: {data.password}</p>
-      </div>
-
-      {/* Narrator and Buttons */}
-      <div className="flex flex-col items-center font-zing justify-center relative z-10 mt-[-20vh]">
-        <Narrator
-          text="HI! I'M YOUR CYBERNAUT."
-          image={cybernautCharacter}
-          float
-        />
-
-        {/* Navigation Buttons */}
-        <div className="absolute z-22 top-[40%] left-[61%] transform -translate-x-1/2 flex flex-col items-center space-y-4 w-[30vw]">
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-            EDUCATORS
-          </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-            STUDENTS
-          </button>
-          <button className="bg-blue-400 hover:bg-blue-500 text-black font-bold font-zing py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-            CUSTOMIZE YOUR CYBERNAUT
-          </button>
+          <NarratorH
+            text="HI! I'M YOUR CYBERNAUT."
+            image={cybernautCharacter}
+            float
+          />
         </div>
-      </div>
-      {/*
-      Navigation Buttons
-      <div className="absolute top-1/2 right-16 transform -translate-y-1/2 flex flex-col space-y-4">
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          EDUCATORS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          STUDENTS
-        </button>
-        <button className="bg-blue-400 hover:bg-blue-500 text-black font-zing font-bold py-3 px-10 rounded-full w-72 text-center option-button text-2xl">
-          CUSTOMIZE YOUR CYBERNAUT
-        </button>
-      </div>
-      */}
-      
-      {/* Continue Button */}
-      {showContinueButton && (
-        <div className="absolute bottom-50 left-1/2 transform -translate-x-1/2">
+
+        {/* CONTINUE button - positioned bottom right */}
+        <div 
+          className="absolute"
+          style={{
+            bottom: '10%',
+            right: '8%'
+          }}
+        >
           <button 
             onClick={handleContinueClick}
-            className="bg-blue-600 hover:bg-blue-700 font-zing text-white font-bold py-3 px-8 rounded-lg"
-          >
-            Click to Continue
+            className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-black font-zing font-bold py-3 px-7 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+            CONTINUE
           </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
