@@ -33,7 +33,7 @@ function Home() {
             maxHeight: '90vh'     // Allow it to be taller
           }}
         >
-          <NarratorH
+          <Narrator
             text="HI! I'M YOUR CYBERNAUT."
             image={cybernautCharacter}
             float
