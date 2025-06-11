@@ -35,7 +35,8 @@ const MtMystery = () => {
         disabled={isDisabled2} 
         className="
         absolute top-125 left-140 bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/MM2'}>
         Module 2
       </button>
       <button

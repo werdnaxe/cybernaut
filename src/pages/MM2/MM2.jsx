@@ -8,23 +8,26 @@ import Narrator from '../../components/Narrator';
 import Quiz from '../../components/Quiz';
 import TextInputSubmission from '../../components/TextInputSubmission';
 import cybernautCharacter from '../../assets/standing-cybernaut.png';
-import cookieOptions from './MM1-cookie-options.png';
-import evilCookies from './MM1-evil-cookies.png';
-import sinkholeMerch from './MM1-sinkhole-merch.png';
+import chat from './MM2-chat.png';
+import contacts from './MM2-contacts.png';
+import cybOnToilet from './MM2-cyb-on-toilet.png';
+import friendsFall from './MM2-friends-fall.png';
+import oneFalls from './MM2-one-falls.png';
+import permissions from './MM2-permissions.png';
 
-const MM1 = () => {
+const MM2 = () => {
   const navigate = useNavigate();
 
   // Module state management variables
-  const currentModule = 5;
+  const currentModule = 6;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   const { completeModule } = useCompleteModule();
-  const totalSegments = 9;
+  const totalSegments = 10;
   
   // Track actual progress through the decision tree
   const [actualProgress, setActualProgress] = useState(0);
-  const totalProgressSteps = 5;
+  const totalProgressSteps = 6;
   
   // Decision state for quiz interactions
   const [decision, setDecision] = useState('');
@@ -58,12 +61,13 @@ const MM1 = () => {
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
 
-    if (segmentIndex === 0) progressStep = 1;   // welcome
-    if (segmentIndex === 1) progressStep = 2;   // ad decision
-    if (segmentIndex >= 2) progressStep = 3   // cookie decision
-    if (segmentIndex === 4) progressStep = 5;   // good cookie result - final
-    if (segmentIndex === 5) progressStep = 4;   // customization decision
-    if (segmentIndex >= 6) progressStep = 5;   // good/bad customization result or good ad result - final
+    // TODO: Update progress logic based on segmentIndex
+    if (segmentIndex >= 0) progressStep = 1;   // welcome
+    if (segmentIndex >= 1) progressStep = 2;   // friend called
+    if (segmentIndex >= 2) progressStep = 3;   // first decision
+    if (segmentIndex >= 3) progressStep = 4;   // first result - either good, good, or bad
+    if (segmentIndex >= 6) progressStep = 5;   // second decision
+    if (segmentIndex >= 7) progressStep = 6;   // second result - final (either bad, bad, or good)
 
     setActualProgress(progressStep);
   };
@@ -79,18 +83,13 @@ const MM1 = () => {
 
     // CHECK SPECIFIC DECISION SEGMENTS
     // Merch ad decision - must select a quiz option
-    if (currentSegment === 1) {
-      return decision === 'Yes' || decision === 'No';
+    if (currentSegment === 2) {
+      return ['Anything', 'Just camera', 'Just mic', 'None'].includes(decision);
     }
 
     // Cookie option decision - must select a quiz option
-    if (currentSegment === 2) {
-      return ['Accept all', 'Reject all', 'Customize'].includes(decision);
-    }
-
-    // Customization decision - must select a quiz option
-    if (currentSegment === 5) {
-      return ['Marketing', 'Tracking', 'Necessary', 'All'].includes(decision);
+    if (currentSegment === 6) {
+      return ['Allow full access', 'Select contacts', 'Don\'t allow'].includes(decision);
     }
 
     return true;   // default to allow proceeding
@@ -100,19 +99,18 @@ const MM1 = () => {
   const isAtModuleEnd = () => {
     const current = moduleSegments[currentSegment];
     return (
-      current.title === "You rejected all cookies." ||
-      current.title === "You only accepted necessary cookies." ||
-      current.title === "You accepted unnecessary cookies." ||
-      current.title === "You rejected the ad."
+      current.title === "You allowed full access." ||
+      current.title === "You allowed access to select contacts."||
+      current.title === "You selected 'Don\'t allow'"
     );
   };
 
   // Module segments
   const moduleSegments = [
     {
-      title: "Welcome to the Cookie Monster's Lair", 
+      title: "Don't get Sucked in.", 
       type: "static",
-      content: "Time to help Cybernaut navigate the world of digital cookies.", 
+      content: "Help Cybernaut learn how to use Sinkhole safely and responsibly for communicating with others.", 
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
            <img
@@ -124,37 +122,32 @@ const MM1 = () => {
       )
     },
     {
-      title: "To Click or Not to Click?",
-      type: "decision",
-      content: "Cybernaut sees an ad for Sinkhole merch. Click?", 
+      title: "Make a Phone Call",
+      type: "static",
+      content: "A friend called Cybernaut using Sinkhole. Sinkhole asks for access.", 
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
           <img
-            src={sinkholeMerch}
-            alt="Merch Ad"
-            className="w-[300px] h-auto rounded-lg shadow-md"
-          />
-          <Quiz
-            options={['Yes', 'No']} 
-            correctAnswer={null}
-            onAnswer={setDecision}
+            src={chat}
+            alt="Chat image"
+            className="w-[800px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
     },
     {
-      title: "You clicked the ad.", 
+      title: "Select an Option", 
       type: "decision",
-      content: "Cybernaut gets a cookie pop-up. What should Cybernaut do?", 
+      content: "What should Cybernaut do?", 
       interactive: (
         <div className="flex flex-row items-center justify-center space-y-6 p-8">
           <img
-            src={cookieOptions}
-            alt="Cookie Options"
-            className="w-[380px] h-auto rounded-lg shadow-md"
+            src={permissions}
+            alt="Permissions image"
+            className="w-[350px] h-auto rounded-lg shadow-md"
           />
           <Quiz
-            options={['Accept all', 'Reject all', 'Customize']} 
+            options={['Anything', 'Just camera', 'Just mic', 'None']} 
             correctAnswer={null}
             onAnswer={setDecision}
           />
@@ -162,76 +155,97 @@ const MM1 = () => {
       )
     },
     {
-      title: "What happened when you accepted all cookies?", 
+      title: "You picked 'Anything'", 
       type: "outcome",
-      content: "The evil cookies started tracking Cybernaut's every move. Cookies can track what you buy or view, and that data can be shared with advertisers.",
+      content: "Oh no! Cybernaut's phone started recording while they were on the toilet.",
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
           <img
-            src={evilCookies}
-            alt="Evil Cookies Image"
+            src={cybOnToilet}
+            alt="Cybernaut on toilet"
             className="w-[800px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
     },
     {
-      title: "You rejected all cookies.", 
+      title: "You picked 'None'", 
       type: "good",
-      content: "Good job! You protected your privacy by rejecting all cookies.", 
+      content: "Good job protecting your privacy. However, you missed your friend's call.", 
       interactive: (
         <Narrator
-          text="Rejecting cookies is a good privacy-preserving practice. It prevents tracking and data collection that can be used for targeted advertising."
+          text="It's important to be cautious about what permissions you grant apps. Only allow access to features that are necessary for the app's functionality."
           image={cybernautCharacter}
         />
       )
     },
     {
-      title: "You chose to customize cookies.", 
-      type: "decision",
-      content: "Which cookies do you want to turn on?", 
+      title: "You picked 'Just camera' or 'Just mic'", 
+      type: "good",
+      content: "Good job protecting your privacy. You managed to talk to your friend while only allowing minimal access to your device.", 
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <Quiz
-            options={['Marketing', 'Tracking', 'Necessary', 'All']}
-            correctAnswer={null}
-            onAnswer={setDecision}
+          <Narrator
+            text="It's important to be cautious about what permissions you grant apps. Only allow access to features that are necessary for the app's functionality."
+            image={cybernautCharacter}
           />
         </div>
       )
     },
     {
-      title: "You only accepted necessary cookies.", 
-      type: "good",
-      content: "Excellent! You protected your privacy by only accepting necessary cookies.",
+      title: "Allow Access?", 
+      type: "decision",
+      content: "Sinkhole asked Cybernaut to allow access to their contacts. What should Cybernaut do?",
       interactive: (
-        <Narrator
-          text="Generally, it's best to only accept necessary cookies that are essential for website functionality. This minimizes tracking and helps to preserve your privacy."
-          image={cybernautCharacter}
-        />
+        <div className="flex flex-row items-center justify-center space-y-6 p-8">
+          <img
+            src={contacts}
+            alt="Contacts image"
+            className="w-[350px] h-auto rounded-lg shadow-md"
+          />
+          <Quiz
+            options={['Allow full access', 'Select contacts', 'Don\'t allow']} 
+            correctAnswer={null}
+            onAnswer={setDecision}
+          />
+        </div>
       )
     },    
     {
-      title: "You accepted unnecessary cookies.", 
+      title: "You allowed full access.", 
       type: "outcome",
-      content: "The evil cookies started tracking Cybernaut's every move. Cookies can track what you buy or view, and that data can be shared with advertisers.",
+      content: "Oh no! Cybernaut's friends got sucked into sinkholes.",
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
           <img
-            src={evilCookies}
-            alt="Evil Cookies Image"
+            src={friendsFall}
+            alt="Friends in sinkholes"
             className="w-[800px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
     },
     {
-      title: "You rejected the ad.", 
+      title: "You allowed access to select contacts.", 
+      type: "outcome",
+      content: "One of Cybernaut's friends got sucked into a sinkhole.",
+      interactive: (
+        <div className="flex flex-col items-center justify-center space-y-6 p-8">
+          <img
+            src={oneFalls}
+            alt="Friend next to sinkhole"
+            className="w-[800px] h-auto rounded-lg shadow-md"
+          />
+        </div>
+      )
+    },
+    {
+      title: "You selected 'Don\'t allow'", 
       type: "good",
-      content: "Great work! You avoided the cookie monster's trap by rejecting the ad.",
+      content: "Great work! Cybernaut's friends are safe from the sinkholes because you didn't allow access to their contacts.",
       interactive: (
         <Narrator
-          text="While choosing whether or not to click on ads is a personal decision, rejecting ads can help you avoid tracking and data collection that can be used to target you for advertising."
+          text="It's good practice to minimize access to contacts as much as possible from third-party apps on your device. Good job!"
           image={cybernautCharacter}
         />
       )
@@ -271,32 +285,23 @@ const MM1 = () => {
     console.log('========================');
 
     // HANDLE DECISION SEGMENTS
-    // Merch ad decision
-    if (currentSegment === 1) {
-      const seeAd = decision;
-      console.log('User clicked on ad?', seeAd);
-      setLastDecisionIndex(currentSegment);
-      const nextSegment = seeAd === 'Yes' ? 2 : 8;   // continue = 2, good (final) = 8
-      setCurrentSegment(nextSegment);
-      updateActualProgress(nextSegment);
-      return;
-    }
-
-    // Select cookie option decision
+    // Call settings decision
     if (currentSegment === 2) {
-      const cookieOption = decision;
-      console.log('User selected cookie option:', cookieOption);
+      console.log('User selected:', decision);
       setLastDecisionIndex(currentSegment);
       let nextSegment;
-      switch (cookieOption) {
-        case 'Accept all':
+      switch (decision) {
+        case 'Anything':
           nextSegment = 3;   // bad choice
           break;
-        case 'Reject all':
-          nextSegment = 4;   // good choice
+        case 'Just camera':
+          nextSegment = 5;   // good choice
           break;
-        case 'Customize':
-          nextSegment = 5;   // alt good choice
+        case 'Just mic':
+          nextSegment = 5;
+          break;
+        case 'None':
+          nextSegment = 4;   // alt good choice
           break;
       }
 
@@ -304,22 +309,38 @@ const MM1 = () => {
       updateActualProgress(nextSegment);
       return;
     }
-      
-    // Customize cookie decision
-    if (currentSegment === 5) {
-      const customization = decision;
-      console.log('User customized cookie:', customization);
+
+    // Allow contact access decision
+    if (currentSegment === 6) {
+      console.log('User selected:', decision);
       setLastDecisionIndex(currentSegment);
-      const nextSegment = customization === 'Necessary' ? 6 : 7;   // good = 6, bad = 7
+      let nextSegment;
+      switch (decision) {
+        case 'Allow full access':
+          nextSegment = 7;   // worst choice
+          break;
+        case 'Select contacts':
+          nextSegment = 8;   // bad choice
+          break;
+        case 'Don\'t allow':
+          nextSegment = 9;   // good choice
+          break;
+      }
+
       setCurrentSegment(nextSegment);
       updateActualProgress(nextSegment);
-      return;   
+      return;
     }
 
     // HANDLE OUTCOME SEGMENTS
     if (current.type === "outcome") {
       console.log('Outcome segment - checking next segment');
-      const nextSegment = currentSegment + 1;
+
+      let nextSegment = currentSegment + 1;
+      // Skip to next decision or ending
+      while (moduleSegments[nextSegment].type !== "decision" && nextSegment < moduleSegments.length) {
+        nextSegment++;
+      }
 
       // If next segment would be out of bounds, navigate
       if (nextSegment >= moduleSegments.length) {
@@ -337,9 +358,9 @@ const MM1 = () => {
     if (current.type === "good") {
       console.log('Good segment - finding next decision or ending');
       
-      // Skip outcome and go to next decision
       let nextSegment = currentSegment + 1;
-      while (nextSegment < moduleSegments.length && moduleSegments[nextSegment].type !== "decision") {
+      // Skip to next decision or ending
+      while (moduleSegments[nextSegment].type !== "decision" && nextSegment < moduleSegments.length) {
         nextSegment++;
       }
 
@@ -367,6 +388,9 @@ const MM1 = () => {
       navigate('/mysterymountain');
     }
 
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+
   };
 
   const handlePrevious = () => {
@@ -387,14 +411,12 @@ const MM1 = () => {
   };
 
   const progressPercentage = (actualProgress / totalProgressSteps) * 100;
-  const XP = actualProgress * (100 / totalProgressSteps);
-  console.log('XP:', XP);
 
   return (
     <div className="bg-blue-50 p-8">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
-          Cookies!
+          Sinkhole!
         </h1>
         
         <div className="mb-20">
@@ -479,10 +501,4 @@ const MM1 = () => {
   );
 };
 
-export default MM1;
-
-/* BUGS/FIXES:
-  1. Hitting "Previous" after any decision will take you back one instead of to previous segment (the one you came from).
-  2. Progress bar does not always update correctly (e.g., when going back).
-  3. On 'Customize', bad decision updates progress bar (this is currently the intended behavior). Either change this or make all bad decision behavior consistent.
-*/
+export default MM2;

@@ -396,10 +396,13 @@ const SMSPModule1 = () => {
       setCurrentSegment(lastDecisionIndex);
       return;
     }
+    
+    // TODO: Repeat above for "good" segments
 
     if (currentSegment > 0) {
       setCurrentSegment(currentSegment - 1);
     }
+
   };
 
   const progressPercentage = (actualProgress / totalProgressSteps) * 100;
