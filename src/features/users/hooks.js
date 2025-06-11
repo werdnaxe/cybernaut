@@ -65,12 +65,17 @@ export function useCompleteModule() {
       totalProgressSteps,
     } = moduleConfig;
 
-    // Map through existing modules to find the one to update
+    // Check here to see if next module is already unlocked (has been updated previously)
+    if (progress.modules.some(module => module.nextSubmodule === nextSubmodule && !module.isDisabled)) {
+      return { success: false, message: 'Next module is already unlocked' };   // will ensure extra XP points are not added to user's progress
+    }
+
+    // Map through existing modules to find the one to update (AKA the next one)
     const updatedModules = progress.modules.map(
       (module) => module.nextSubmodule === nextSubmodule
         ? {
             ...module,
-            isDisabled: false
+            isDisabled: false   // ensure next module is unlocked
           }
         : module
     );
