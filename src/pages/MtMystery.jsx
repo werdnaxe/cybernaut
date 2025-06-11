@@ -23,7 +23,8 @@ const MtMystery = () => {
         Module 3
       </button>
       <button
-        className="absolute top-173 left-133 bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        className="absolute top-173 left-133 bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl"
+        onClick={() => window.location.href = '/MM4'}>
         Module 4
       </button>
     </div>
