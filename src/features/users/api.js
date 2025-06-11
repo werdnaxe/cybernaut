@@ -15,8 +15,8 @@ export const createUser = async ({ username, email, password }) => {
 };
 
 // POST (create) progress doc when new user is created
-export const createProgress = async ({ userID }) => {
-    const { data } = await axios.post(`${API_URL}/progress`, { userID });
+export const createProgress = async ({ user, modules }) => {
+    const { data } = await axios.post(`${API_URL}/progress`, { user, modules });
     return data;
 };
 
@@ -80,9 +80,9 @@ export const updatePasswordByID = async (id, { password }) => {
 };
 
 // PUT (update) progress doc by user ID
-export const updateProgressByUserID = async (userID, { XP, submodulePerModule }) => {
+export const updateProgressByUserID = async (userID, { XP, modules }) => {
     const token = localStorage.getItem('site');
-    const { data } = await axios.put(`${API_URL}/progress/${userID}`, { XP, submodulePerModule },
+    const { data } = await axios.put(`${API_URL}/progress/${userID}`, { XP, modules },
         {
             headers: {
                 Authorization: `Bearer ${token}`,

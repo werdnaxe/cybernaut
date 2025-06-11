@@ -12,9 +12,9 @@ const router = express.Router();
 // Create user's progress document
 router.post('/', async (req, res) => {
     try {
-        const { userID } = req.body;
-        const userProgress = await Progress.create({ user: userID });
-        res.send(userProgress).status(204);
+        const { user, modules } = req.body;
+        const userProgress = await Progress.create({ user, modules });
+        res.status(201).send(userProgress);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error creating progress document');
@@ -38,10 +38,10 @@ router.put('/:userID', authenticateToken, async (req, res) => {
     if (!updatedProgress) res.send('User progress not found').status(404);
     else {
         updatedProgress.XP = req.body.XP;
-        updatedProgress.submodulePerModule = req.body.submodulePerModule;
+        updatedProgress.modules = req.body.modules;
         await updatedProgress.save();
         console.log('User progress updated:', updatedProgress);
-        res.send(updatedProgress).status(200);
+        res.status(200).send(updatedProgress);
     }        
 })
 

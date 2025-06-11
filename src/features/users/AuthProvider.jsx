@@ -56,9 +56,17 @@ const AuthProvider = ({ children }) => {
     }
 
     // Updates user's progress document locally and in database
-    const updateProgress = async (userID, { XP, submodulePerModule }) => {
+    const updateProgress = async (id, { XP, modules }) => {
         try {
-            const updatedProgress = await usersAPI.updateProgressByUserID(userID, { XP, submodulePerModule });
+            const updatedProgress = await usersAPI.updateProgressByUserID(
+                id,
+                { XP, modules },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             setProgress(updatedProgress);
         } catch (error) {
             console.error('Error updating progress:', error);
@@ -74,7 +82,7 @@ const AuthProvider = ({ children }) => {
                 { username },   
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,   // include token in request header
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
@@ -93,7 +101,7 @@ const AuthProvider = ({ children }) => {
                 { password },   
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,   // include token in request header
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../features/users/AuthProvider';
+import { useCompleteModule } from '../../features/users/hooks';
 import '../Cybernaut.css';
 
 // TODO: Replace images as needed
@@ -17,9 +18,11 @@ const MM1 = () => {
   const navigate = useNavigate();
 
   // Module state management variables
+  const currentModule = 5;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   const { user, progress, updateProgress } = useAuthContext();
+  const { completeModule } = useCompleteModule();
   const totalSegments = 9;
   
   // Track actual progress through the decision tree
@@ -34,6 +37,26 @@ const MM1 = () => {
     updateActualProgress(currentSegment);
   }, []);
 
+  // Update progress doc upon completion of module if user is logged in
+  const handleClickFinish = async () => {
+    const result = await completeModule(
+      {
+        title: "MM",
+        nextSubmodule: currentModule + 1,
+        isDisabled: false,
+        actualProgress,
+        totalProgressSteps
+      }
+    );
+
+    if (result.success === true) {
+      console.log(result.message);
+    }
+    else {
+      console.error('Error updating progress:', result.error);
+    }
+  };
+
   // Function to update progress based on current segment
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
@@ -46,7 +69,7 @@ const MM1 = () => {
     if (segmentIndex >= 6) progressStep = 5;   // good/bad customization result or good ad result - final
 
     setActualProgress(progressStep);
-  }
+  };
 
   // Validation logic for when users can proceed
   const canProceed = () => {
@@ -230,6 +253,14 @@ const MM1 = () => {
       return;
     }
     
+    // Check for endings by title
+    if (isAtModuleEnd()) {
+      handleClickFinish();
+      console.log('NAVIGATING - end segment reached');
+      navigate('/mysterymountain');
+      return;
+    }
+
     // SAFETY CHECK: If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
       console.log('NAVIGATING - at or past last segment');
@@ -322,23 +353,10 @@ const MM1 = () => {
         console.log('NAVIGATING - reached end through good path');
         navigate('/mysterymountain');
         return;
-      } else {
-        if (isAtModuleEnd()) {
-          console.log('NAVIGATING - end segment reached');
-          navigate('/mysterymountain');
-          return;
-        }
       }
       
       setCurrentSegment(nextIndex);
       updateActualProgress(nextIndex);
-      return;
-    }
-
-    // Check for endings by title
-    if (isAtModuleEnd()) {
-      console.log('NAVIGATING - end segment reached');
-      navigate('/mysterymountain');
       return;
     }
 
@@ -370,6 +388,8 @@ const MM1 = () => {
   };
 
   const progressPercentage = (actualProgress / totalProgressSteps) * 100;
+  const XP = actualProgress * (100 / totalProgressSteps);
+  console.log('XP:', XP);
 
   return (
     <div className="bg-blue-50 p-8">
