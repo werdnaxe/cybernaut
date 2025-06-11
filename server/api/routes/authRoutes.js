@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
         const accessToken = jwt.sign( 
             { id: user._id }, 
             process.env.JWT_SECRET_KEY,   // backend secret token in .env, AKA the JWT secret
-            { expiresIn: '1h' } 
+            { expiresIn: '1h' }   // change for testing purposes
         );
         console.log('Access token generated:', accessToken);
     
@@ -54,10 +54,13 @@ router.post('/login', async (req, res) => {
         // Set refresh token in HTTP-only cookie to live in browser
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,   // ensures cookie only accessible by server
-            secure: process.env.NODE_ENV === 'production',   // use secure cookies in production
-            sameSite: 'Strict',   // prevents CSRF attacks
+            secure: false,
+            sameSite: 'lax',   // prevents CSRF attacks
             maxAge: 30 * 24 * 60 * 60 * 1000   // 30 days in milliseconds
         })
+
+        // Console log refresh token in cookie
+        console.log('Refresh token set in cookie:', req.cookies.refreshToken);   // debugging line
     
         // Remove password from user object before sending response
         const { password: _, ...userWithoutPassword } = user.toObject();
@@ -156,22 +159,24 @@ router.post('/verify-token', async (req, res) => {
 router.post('/refresh', async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
+    console.log('Received refresh token:', refreshToken);   // debugging line
+
     jwt.verify(refreshToken, process.env.JWT_SECRET_KEY, (err, user) => {
         if (err) {
             console.error('Invalid refresh token:', err);
-            return res.send('Invalid refresh token').status(403);
+            return res.status(403).send('Invalid or expired refresh token');
         }
 
         // If refresh token is valid, generate a new access token
         const accessToken = jwt.sign( 
             { id: user._id }, 
             process.env.JWT_SECRET_KEY,   // backend secret token in .env, AKA the JWT secret
-            { expiresIn: '1h' } 
+            { expiresIn: '2m' } 
         );
-        console.log('Access token generated:', accessToken);
-    });
+        console.log('New access token generated:', accessToken);
 
-    res.send({ accessToken }).status(200);
-})
+        res.status(200).send({ accessToken });
+    });
+});
 
 export default router;

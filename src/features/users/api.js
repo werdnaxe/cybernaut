@@ -1,3 +1,5 @@
+/* This file contains API wrapper functions for hitting our API endpoints. */
+
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api';
@@ -26,10 +28,6 @@ export const loginUser = async ({ username, password }) => {
     return data;
 };
 
-// TO-DO: implement logout functionality
-
-// TO-DO: implement refresh token functionality
-
 // GET (fetch) user by ID
 export const fetchUserByID = async (id) => {
     const token = localStorage.getItem('site');
@@ -45,7 +43,14 @@ export const fetchUserByID = async (id) => {
 
 // GET (fetch) progress doc by user ID
 export const fetchProgressByUserID = async (userID) => {
-    const { data } = await axios.get(`${API_URL}/progress/${userID}`);
+    const token = localStorage.getItem('site');
+    const { data } = await axios.get(`${API_URL}/progress/${userID}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
     return data;
 };
 
@@ -117,3 +122,17 @@ export const deleteProgressByUserID = async (userID) => {
     );
     return data;
 };
+
+// TO-DO: implement logout functionality
+
+// TO-DO: implement refresh token functionality
+export const refresh = async () => {
+    const { data } = await axios.post(`${API_URL}/auth/refresh`, 
+        {},
+        {
+            withCredentials: true,   // includes cookies in the request
+        }
+    );
+    console.log('Refresh token response:', data);
+    return data;
+}

@@ -14,8 +14,8 @@ const authenticateToken = (req, res, next) => {
                 return res.status(403).send('Invalid or expired token');
             }
 
-            req.user = user;   // Attach decoded user info to request object
-            next();   // Proceed to the next middleware or route
+            req.user = user;   // attach decoded user info to request object
+            next();   // proceed to the next middleware or route
     });
 };
 
