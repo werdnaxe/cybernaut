@@ -48,7 +48,8 @@ const SocialMediaPassage = () => {
         disabled={isDisabled3}      
         className="
         absolute top-145 left-155 bg-[#90cddb] hover:bg-[#72acba] text-black font-zing font-bold py-3 px-10 rounded-full text-center text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/SMSPModule3'}>
         Module 3
       </button>
       
