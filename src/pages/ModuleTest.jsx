@@ -6,6 +6,9 @@ import { checkpointTwo } from '../data/mediaArrays';
 import Narrator from '../components/Narrator';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import { useAuthContext } from '../features/users/AuthProvider';
+import BreathingTriangle from '../components/BreathingTriangle';
+import BoxBreathing from '../components/BoxBreathing';
+import BellyBreathing from '../components/BellyBreathing';
 
 const ModuleTest = () => {
   const [currentSegment, setCurrentSegment] = useState(0);
@@ -26,17 +29,17 @@ const ModuleTest = () => {
     {
         title: "C",
         content: "third stage",
-        interactive: null
+        interactive: <BreathingTriangle />
     },
     {
         title: "D",
         content: "fourth stage",
-        interactive: null
+        interactive: <BoxBreathing />
     },
     {
         title: "E",
         content: "fifth stage",
-        interactive: null
+        interactive: <BellyBreathing />
     },
     {
         title: "F",
