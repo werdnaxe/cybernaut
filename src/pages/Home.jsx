@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../features/users/AuthProvider';
 import background from '../assets/farthest-portal.png';
 import cybernautCharacter from '../assets/standing-cybernaut.png';
 import Narrator from '../components/Narrator';
@@ -7,6 +8,7 @@ import './Cybernaut.css';
 
 function Home() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();   // for adding user's name to welcome message
 
   const handleContinueClick = () => {
     navigate('/destinations'); // Navigate to destinations page
