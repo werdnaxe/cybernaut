@@ -1,5 +1,6 @@
-import { useContext, createContext, useState, use, useEffect } from 'react';
+import { useContext, createContext, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import * as usersAPI from './api';
 const AuthContext = createContext();
 
@@ -7,12 +8,50 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [progress, setProgress] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('site') || "");
+    const refreshTimeoutRef = useRef(null);   // to store the timeout ID for refreshing access token
     const navigate = useNavigate();
+
+    // Function to refresh access token
+    const refreshAccessToken = async () => {
+        try {
+            const response = await usersAPI.refresh();
+            const newAccessToken = response.accessToken;
+            console.log("New access token received:", newAccessToken);
+
+            setToken(newAccessToken);   // runs useEffect hook to schedule a new refresh
+            localStorage.setItem('site', newAccessToken);
+        } catch (error) {
+            console.error('Error refreshing access token:', error);
+            logoutAction();   // if token refresh fails, fallback to logout
+        }
+    };
+
+    // Function to schedule access token refresh 1 minute before expiration
+    const scheduleRefresh = (token) => {
+
+        if (refreshTimeoutRef.current) clearTimeout(refreshTimeoutRef.current);   // 2. clear any existing/old timeout value
+        
+        const decodedAccessToken = jwtDecode(token);
+        const expirationTime = decodedAccessToken.exp * 1000;
+        const currentTime = Date.now();
+        const timeUntilExpiration = expirationTime - currentTime;
+        if (timeUntilExpiration > 0) {
+            refreshTimeoutRef.current = setTimeout(   // 3. set a new timer
+                refreshAccessToken,
+                timeUntilExpiration - 60000   // 1 mintute before expiration
+            );
+        }
+    };
+    
+    // Whenever the token changes, schedule a refresh
+    useEffect(() => {
+        if (token) scheduleRefresh(token);   // 1. schedule refresh
+    }, [token]);
 
     // Load user and progress state every time the component mounts
     useEffect(() => {
         const userID = localStorage.getItem('userID');
-        console.log("User ID from localStorage:", userID);   // debugging line
+        // console.log("User ID from localStorage:", userID);   // debugging line
         if (userID) {
             fetchUserAndProgress(userID);
         }
@@ -56,9 +95,12 @@ const AuthProvider = ({ children }) => {
     }
 
     // Updates user's progress document locally and in database
-    const updateProgress = async (userID, { XP, submodulePerModule }) => {
+    const updateProgress = async (id, { XP, modules }) => {
         try {
-            const updatedProgress = await usersAPI.updateProgressByUserID(userID, { XP, submodulePerModule });
+            const updatedProgress = await usersAPI.updateProgressByUserID(
+                id,
+                { XP, modules },
+            );
             setProgress(updatedProgress);
         } catch (error) {
             console.error('Error updating progress:', error);
@@ -66,14 +108,31 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    // Updates user's account information
-    const updateUser = async (id, { username, email, password }) => {
+    // Updates username
+    const updateUsername = async (id, { username }) => {
         try {
-            const updatedUser = await usersAPI.updateUserByID(id, { username, email, password });
+            const updatedUser = await usersAPI.updateUsernameByID(
+                id, 
+                { username },   
+            );
             setUser(updatedUser);
             return updatedUser;
         } catch (error) {
-            console.error('Error updating user:', error);
+            throw error;
+        }
+    }
+
+    // Updates password
+    const updatePassword = async (id, { password }) => {
+        try {
+            const updatedUser = await usersAPI.updatePasswordByID(
+                id, 
+                { password },   
+            );
+            setUser(updatedUser);
+            return updatedUser;
+        } catch (error) {
+            console.error('Error updating password:', error);
             throw error;
         }
     }
@@ -97,10 +156,14 @@ const AuthProvider = ({ children }) => {
     // Ensures user persists across page reloads
     const fetchUserAndProgress = async (id) => {
         try {
-            const fetchedUser = await usersAPI.fetchUserByID(id);
+            const fetchedUser = await usersAPI.fetchUserByID(id);   // NOTE: this call may be redundant (since we already have the user ID in localStorage)
             setUser(fetchedUser);
-            const fetchedProgress = await usersAPI.fetchProgressByUserID(fetchedUser._id);
-            setProgress(fetchedProgress);
+            
+            if (fetchedUser) {
+                const fetchedProgress = await usersAPI.fetchProgressByUserID(fetchedUser._id);
+                setProgress(fetchedProgress);
+            }
+            
             setToken(localStorage.getItem('site'));
             localStorage.setItem('userID', fetchedUser._id);
         } catch (error) {
@@ -110,7 +173,7 @@ const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ token, user, progress, loginAction, logoutAction, updateProgress, updateUser, deleteUser }}>
+        <AuthContext.Provider value={{ token, user, progress, loginAction, logoutAction, updateProgress, updateUsername, updatePassword, deleteUser }}>
             {children}
         </AuthContext.Provider>
     );
