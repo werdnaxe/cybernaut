@@ -20,27 +20,27 @@ import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
 
 const App = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/destinations" element={<Destinations />} />
-        <Route path="/mysterymountain" element={<MtMystery />} />
-        <Route path="/SocialMediaPassage" element={<SocialMediaPassage />} />
-        <Route path="/datadetoxpit" element={<DataDetoxPit />} />
-        <Route path="/user-forms" element={<UserForms />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route path="/destinations" element={<Destinations />} /> 
-        <Route path="/module-test" element={<ModuleTest />} />
-
-        <Route path="/SMSPModule1" element={<SMSPModule1 />} />
-        <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
-      </Routes>
+      <main className="max-w-screen-2xl mx-auto">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/destinations" element={<Destinations />} />
+          <Route path="/mysterymountain" element={<MtMystery />} />
+          <Route path="/SocialMediaPassage" element={<SocialMediaPassage />} />
+          <Route path="/datadetoxpit" element={<DataDetoxPit />} />
+          <Route path="/user-forms" element={<UserForms />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="/destinations" element={<Destinations />} /> 
+          <Route path="/SMSPModule1" element={<SMSPModule1 />} />
+          <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
+        </Routes>
+      </main>
     </div>
   );
 }
