@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     // Load user and progress state every time the component mounts
     useEffect(() => {
         const userID = localStorage.getItem('userID');
-        console.log("User ID from localStorage:", userID);   // debugging line
+        // console.log("User ID from localStorage:", userID);   // debugging line
         if (userID) {
             fetchUserAndProgress(userID);
         }
@@ -132,7 +132,7 @@ const AuthProvider = ({ children }) => {
     // Ensures user persists across page reloads
     const fetchUserAndProgress = async (id) => {
         try {
-            const fetchedUser = await usersAPI.fetchUserByID(
+            const fetchedUser = await usersAPI.fetchUserByID(   // NOTE: this call may be redundant (since we already have the user ID in localStorage)
                 id,
                 {
                     headers: {
