@@ -33,6 +33,7 @@ const SMSPModule1 = () => {
   const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 7; // Welcome, Name, Name Result, Birthday, Birthday Result, Password, Password Result
 
+  
   const [profileName, setProfileName] = useState('');
   const [profileAge, setProfileAge] = useState('');
   const [profilePassword, setProfilePassword] = useState('');
