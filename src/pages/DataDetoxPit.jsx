@@ -2,7 +2,7 @@ import React from 'react'
 
 const DataDetoxPit = () => {
   return (
-    <div className="relative bg-[url('src/assets/datadetoxpath.png')] min-h-screen w-full">
+    <div className="relative bg-[url('src/assets/datadetoxpath.png')] flex-grow bg-cover w-full">
       {/* Back button */}
       <button
         className="absolute top-10 left-10 bg-white hover:bg-grey text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl"

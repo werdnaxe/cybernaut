@@ -20,9 +20,11 @@ import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
 
 const App = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main className="max-w-screen-2xl mx-auto">
+    <div className="min-h-screen flex flex-col bg-blue-50">
+      <header className="mx-auto w-full">
+        <Header />
+      </header>
+      <main className="flex-grow flex flex-col max-w-screen-2xl mx-auto w-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

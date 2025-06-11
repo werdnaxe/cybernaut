@@ -2,7 +2,7 @@ import React from 'react'
 
 const MtMystery = () => {
   return (
-    <div className="relative bg-[url('src/assets/mtmysterypath.png')] bg-top bg-no-repeat min-h-[100vh] w-full p-5">
+    <div className="relative bg-[url('src/assets/mtmysterypath.png')] bg-cover bg-no-repeat flex-grow w-full p-5">
       {/* Back button */}
       <button
         className="absolute top-10 left-10 bg-white hover:bg-grey text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl"

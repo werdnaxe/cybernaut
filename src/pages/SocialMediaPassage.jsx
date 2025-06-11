@@ -4,7 +4,7 @@ import socmedpassImage from '../assets/socmedpass.png' // Import the image
 const SocialMediaPassage = () => {
   return (
     <div 
-      className="relative min-h-screen w-full bg-cover bg-center"
+      className="relative flex-grow w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${socmedpassImage})` }} // Use the imported image
     >
       {/* Back button */}
