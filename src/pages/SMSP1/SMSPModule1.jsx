@@ -1,5 +1,3 @@
-// Function to check if current segment is ready to proceedimport '../Cybernaut.css';
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cybernaut.css';
@@ -35,6 +33,7 @@ const SMSPModule1 = () => {
   const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 7; // Welcome, Name, Name Result, Birthday, Birthday Result, Password, Password Result
 
+  
   const [profileName, setProfileName] = useState('');
   const [profileAge, setProfileAge] = useState('');
   const [profilePassword, setProfilePassword] = useState('');
@@ -117,7 +116,7 @@ const SMSPModule1 = () => {
       return profilePassword.trim().length > 0;
     }
     
-    return true; // Default to allow proceeding
+    return true;
   };
 
   const moduleSegments = [
@@ -283,7 +282,6 @@ const SMSPModule1 = () => {
     console.log('Total Segments:', moduleSegments.length);
     console.log('Can Proceed?', canProceed());
     
-    // Don't allow proceeding if validation fails
     if (!canProceed()) {
       console.log('Cannot proceed - interaction required');
       return;
@@ -297,7 +295,7 @@ const SMSPModule1 = () => {
       return;
     }
     
-    // SAFETY CHECK: If we're at or past the last segment, navigate immediately
+    // If we're at or past the last segment, navigate immediately
     if (currentSegment >= moduleSegments.length - 1) {
       console.log('NAVIGATING - at or past last segment');
       navigate('/SocialMediaPassage');
@@ -420,7 +418,7 @@ const SMSPModule1 = () => {
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">
