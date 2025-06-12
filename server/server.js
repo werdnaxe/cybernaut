@@ -1,27 +1,28 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 dotenv.config();
 import usersRouter from './api/routes/userRoutes.js';
 import progressRouter from './api/routes/progressRoutes.js'
-import modulesRouter from './api/routes/moduleRoutes.js';
-import submodulesRouter from './api/routes/submoduleRoutes.js';
-import quizzesRouter from './api/routes/quizRoutes.js';
+import authRouter from './api/routes/authRoutes.js';
 import connectDB from './db/conn.js';
 connectDB();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:5173',   // allow requests from client URL (Vite dev server)
+  credentials: true,   // allow cookies to be sent with requests
+}));
 app.use(express.json());
 
 // Mount all available routers
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/progress', progressRouter);
-app.use('/api/modules', modulesRouter);
-app.use('/api/submodules', submodulesRouter);
-app.use('/api/quizzes', quizzesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

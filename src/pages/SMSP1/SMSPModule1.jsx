@@ -10,6 +10,7 @@ import winnerCybernaut from './winner-cyb.png';
 import { useAuthContext } from '../../features/users/AuthProvider';
 import introVideo from "./intro.mp4";
 import TextInputSubmission from '../../components/TextInputSubmission';
+import { useCompleteModule } from '../../features/users/hooks';
 
 import setNameImage from './set-name.png.PNG';
 import setAgeImage from './set-age.png.PNG';
@@ -22,15 +23,17 @@ import passwordBadOutcome from './hacked-account.png';
 const SMSPModule1 = () => {
   const navigate = useNavigate();
 
+  const currentModule = 1;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
-  const { user, progress, updateProgress } = useAuthContext();
+  const { completeModule } = useCompleteModule();
   const totalSegments = 10;
   
   // Track actual progress through the decision tree
   const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 7; // Welcome, Name, Name Result, Birthday, Birthday Result, Password, Password Result
 
+  
   const [profileName, setProfileName] = useState('');
   const [profileAge, setProfileAge] = useState('');
   const [profilePassword, setProfilePassword] = useState('');
@@ -39,6 +42,26 @@ const SMSPModule1 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update progress doc upon completion of module if user is logged in
+  const handleClickFinish = async () => {
+    const result = await completeModule(
+      {
+        title: "SMSP",
+        nextSubmodule: currentModule + 1,
+        isDisabled: false,
+        actualProgress,
+        totalProgressSteps
+      }
+    );
+
+    if (result.success === true) {
+      console.log(result.message);
+    }
+    else {
+      console.error('Error updating progress:', result.error);
+    }
+  };
 
   // Function to determine if we're at the actual end of the module
   const isAtModuleEnd = () => {
@@ -257,6 +280,14 @@ const SMSPModule1 = () => {
       console.log('Cannot proceed - interaction required');
       return;
     }
+
+    // Check for specific ending segments by title
+    if (isAtModuleEnd()) {
+      handleClickFinish();
+      console.log('NAVIGATING - end segment reached by title');
+      navigate('/SocialMediaPassage');
+      return;
+    }
     
     // If we're at or past the last segment, navigate immediately
     if (currentSegment >= moduleSegments.length - 1) {
@@ -344,13 +375,6 @@ const SMSPModule1 = () => {
       return;
     }
 
-    // Check for specific ending segments by title
-    if (isAtModuleEnd()) {
-      console.log('NAVIGATING - end segment reached by title');
-      navigate('/SocialMediaPassage');
-      return;
-    }
-
     // Normal forward movement
     const nextSegment = currentSegment + 1;
     if (nextSegment < moduleSegments.length) {
@@ -370,10 +394,13 @@ const SMSPModule1 = () => {
       setCurrentSegment(lastDecisionIndex);
       return;
     }
+    
+    // TODO: Repeat above for "good" segments
 
     if (currentSegment > 0) {
       setCurrentSegment(currentSegment - 1);
     }
+
   };
 
   const progressPercentage = (actualProgress / totalProgressSteps) * 100;

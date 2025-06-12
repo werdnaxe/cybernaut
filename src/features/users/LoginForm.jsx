@@ -27,15 +27,21 @@ export default function LoginForm() {
         username: '',
         password: ''
       });
+      setError(null);
     } catch (error) {
-      setError(error);
+      // Display server's error message if available
+      if (error.response && error.response.data) {
+        setError(error.response.data);
+      } else {
+        setError(error);
+      }
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-6">
       <h1 className = "text-2xl mb-4">User Login</h1>
-        {error && <p className="text-red-500">{error.message}</p>}
+        {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
           name="username" value={form.name} onChange={handleChange}

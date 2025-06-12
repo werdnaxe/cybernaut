@@ -14,11 +14,14 @@ import MtMystery from './pages/MtMystery'; // added
 import DataDetoxPit from './pages/DataDetoxPit'; // added
 import SocialMediaPassage from './pages/SocialMediaPassage'; // added
 import ModuleTest from './pages/ModuleTest';
-
+import VerifyAccount from './features/users/VerifyAccount';
 import SMSPModule1 from './pages/SMSP1/SMSPModule1';
 import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
 import MM4 from './pages/MM4/MM4.jsx';
 import DDP4 from './pages/DDP4/DDP4.jsx';
+import SMSPModule3 from './pages/SMSPModule3';
+import MM1 from './pages/MM1/MM1';
+import MM2 from './pages/MM2/MM2';
 
 const App = () => {
   return (
@@ -38,11 +41,15 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
+          <Route path="/verify-account" element={<VerifyAccount />} />
           <Route path="/destinations" element={<Destinations />} /> 
           <Route path="/SMSPModule1" element={<SMSPModule1 />} />
           <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
           <Route path="/MM4" element={<MM4 />} />
           <Route path="/DDP4" element={<DDP4 />} />
+          <Route path="/SMSPModule3" element={<SMSPModule3 />} />
+          <Route path="/MM1" element={<MM1 />} />
+          <Route path="/MM2" element={<MM2 />} />
         </Routes>
       </main>
     </div>
