@@ -23,7 +23,8 @@ const DataDetoxPit = () => {
         Module 3
       </button>
       <button
-        className="absolute top-145 left-155 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl">
+        className="absolute top-145 left-155 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl"
+        onClick={() => window.location.href = '/DDP4'}>
         Module 4
       </button>
     </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Cybernaut.css';
 
-// TODO: Import your components and assets here
 import Narrator from '../../components/Narrator';
 import Quiz from '../../components/Quiz';
 import TextInputSubmission from '../../components/TextInputSubmission';
@@ -19,15 +18,12 @@ import billboard from './billboard.png';
 const MM4 = () => {
   const navigate = useNavigate();
 
-  // TODO: Update these state variables based on your module's needs
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   
-  // TODO: Update progress tracking
   const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 4;
   
-  // TODO: Add state variables for storing user inputs/decisions
   const [TOSresponse, setTOSresponse] = useState('');
   const [Rightsresponse, setRightsresponse] = useState('');
 
@@ -36,7 +32,6 @@ const MM4 = () => {
     updateActualProgress(currentSegment);
   }, []);
 
-  // TODO: Update this function based on your module's progress flow
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
     
@@ -48,7 +43,6 @@ const MM4 = () => {
     setActualProgress(progressStep);
   };
 
-  // TODO: Update validation logic for when users can proceed
   const canProceed = () => {
     const current = moduleSegments[currentSegment];
     
@@ -71,14 +65,30 @@ const MM4 = () => {
   // Function to determine if we're at the actual end of the module
   const isAtModuleEnd = () => {
     const current = moduleSegments[currentSegment];
+    
+    // Check if this is the last segment in the array
+    if (currentSegment >= moduleSegments.length - 1) {
+      return true;
+    }
+    
+    // Check if this is a good/outcome segment and there are no more decision segments after it
+    if (current.type === "good" || current.type === "outcome") {
+      let nextIndex = currentSegment + 1;
+      while (nextIndex < moduleSegments.length && 
+            moduleSegments[nextIndex].type !== "decision") {
+        nextIndex++;
+      }
+      // If no more decision segments found, end
+      return nextIndex >= moduleSegments.length;
+    }
+    
+    // For other segment types, check for specific end titles if needed
     return (
       current.title === "Module Complete!" ||
-      current.title === "Final Outcome" ||
-      currentSegment >= moduleSegments.length - 1
+      current.title === "Final Outcome"
     );
   };
 
-  // TODO: CUSTOMIZE YOUR MODULE SEGMENTS HERE
   const moduleSegments = [
     {
       title: "Terms of Sneakiness", 
@@ -198,19 +208,17 @@ const MM4 = () => {
     }
   ];
 
-  // TODO: UPDATE DECISION LOGIC HERE
   const handleNext = () => {
     console.log('=== handleNext DEBUG ===');
     console.log('Current Segment:', currentSegment);
     console.log('Can Proceed?', canProceed());
     
-    // Don't allow proceeding if validation fails
     if (!canProceed()) {
       console.log('Cannot proceed - interaction required');
       return;
     }
     
-    // SAFETY CHECK: If we're at or past the last segment, navigate
+    // If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
       console.log('NAVIGATING - at or past last segment');
       navigate('/mysterymountain');
@@ -326,7 +334,7 @@ const MM4 = () => {
     // If on an outcome or good segment, go back to the decision that led here
     if ((current.type === "outcome" || current.type === "good") && lastDecisionIndex !== null) {
       setCurrentSegment(lastDecisionIndex);
-      // Clear the previous response so user can make a new choice
+      // Clear the previous response for new choice
       if (lastDecisionIndex === 0) {
         setTOSresponse('');
       } else if (lastDecisionIndex === 5) {

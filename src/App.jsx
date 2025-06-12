@@ -18,6 +18,7 @@ import ModuleTest from './pages/ModuleTest';
 import SMSPModule1 from './pages/SMSP1/SMSPModule1';
 import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
 import MM4 from './pages/MM4/MM4.jsx';
+import DDP4 from './pages/DDP4/DDP4.jsx';
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/SMSPModule1" element={<SMSPModule1 />} />
           <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
           <Route path="/MM4" element={<MM4 />} />
+          <Route path="/DDP4" element={<DDP4 />} />
         </Routes>
       </main>
     </div>
