@@ -18,7 +18,7 @@ import bossAlmostDead from './boss-almost-dead.png';
 import victory from './victory.png';
 import bossRecovering from './boss-recovering.png';
 
-const DDP4 = () => {
+const DDP3 = () => {
   const navigate = useNavigate();
 
   const [currentSegment, setCurrentSegment] = useState(0);
@@ -577,4 +577,4 @@ const DDP4 = () => {
   );
 };
 
-export default DDP4;
+export default DDP3;

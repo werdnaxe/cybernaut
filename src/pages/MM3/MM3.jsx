@@ -15,7 +15,7 @@ import TOSdenial from './TOS-denial.png';
 import creativeRights from './creative-rights.png';
 import billboard from './billboard.png';
 
-const MM4 = () => {
+const MM3 = () => {
   const navigate = useNavigate();
 
   const [currentSegment, setCurrentSegment] = useState(0);
@@ -440,4 +440,4 @@ const MM4 = () => {
   );
 };
 
-export default MM4;
+export default MM3;
