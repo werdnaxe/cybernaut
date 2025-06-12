@@ -34,7 +34,8 @@ const DataDetoxPit = () => {
         disabled={isDisabled2}
         className="
         absolute top-100 left-135 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/DDP2'}>
         Module 2
       </button>
       <button

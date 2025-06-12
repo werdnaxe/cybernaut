@@ -22,6 +22,7 @@ import DDP4 from './pages/DDP4/DDP4.jsx';
 import SMSPModule3 from './pages/SMSPModule3';
 import MM1 from './pages/MM1/MM1';
 import MM2 from './pages/MM2/MM2';
+import DDP2 from './pages/DDP2/DDP2';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/SMSPModule3" element={<SMSPModule3 />} />
           <Route path="/MM1" element={<MM1 />} />
           <Route path="/MM2" element={<MM2 />} />
+          <Route path="/DDP2" element={<DDP2 />} />
         </Routes>
       </main>
     </div>
