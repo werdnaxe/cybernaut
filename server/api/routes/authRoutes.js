@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
         const accessToken = jwt.sign( 
             { id: user._id }, 
             process.env.JWT_SECRET_KEY,   // backend secret token in .env, AKA the JWT secret
-            { expiresIn: '1h' }   // change for testing purposes
+            { expiresIn: '15m' }
         );
         console.log('Access token generated:', accessToken);
     
@@ -54,8 +54,8 @@ router.post('/login', async (req, res) => {
         // Set refresh token in HTTP-only cookie to live in browser
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,   // ensures cookie only accessible by server
-            secure: false,
-            sameSite: 'lax',   // prevents CSRF attacks
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',   // prevents CSRF attacks
             maxAge: 30 * 24 * 60 * 60 * 1000   // 30 days in milliseconds
         })
 
@@ -170,8 +170,8 @@ router.post('/refresh', async (req, res) => {
         // If refresh token is valid, generate a new access token
         const accessToken = jwt.sign( 
             { id: user._id }, 
-            process.env.JWT_SECRET_KEY,   // backend secret token in .env, AKA the JWT secret
-            { expiresIn: '2m' } 
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '15m' } 
         );
         console.log('New access token generated:', accessToken);
 

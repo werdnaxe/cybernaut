@@ -24,7 +24,12 @@ export const createProgress = async ({ user, modules }) => {
 
 // POST (login) user when button is clicked
 export const loginUser = async ({ username, password }) => {
-    const { data } = await axios.post(`${API_URL}/auth/login`, { username, password });
+    const { data } = await axios.post(`${API_URL}/auth/login`, 
+        { username, password },
+        {
+            withCredentials: true,
+        }
+    );
     return data;
 };
 

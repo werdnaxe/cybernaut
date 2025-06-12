@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
         if (timeUntilExpiration > 0) {
             refreshTimeoutRef.current = setTimeout(   // 3. set a new timer
                 refreshAccessToken,
-                timeUntilExpiration - 60000   // 1 mintute before expiration
+                timeUntilExpiration - 60000   // trigger refresh 1 minute before expiration
             );
         }
     };
@@ -61,10 +61,10 @@ const AuthProvider = ({ children }) => {
     const loginAction = async (payload) => {
         try {
             const res = await usersAPI.loginUser(payload);   // makes API call to server
-            console.log("Login response:", res);
+            // console.log("Login response:", res);
 
             const prog = await usersAPI.fetchProgressByUserID(res.user._id)
-            console.log("Progress response:", prog);
+            // console.log("Progress response:", prog);
             if (!prog) {
                 throw new error('Failed to retrieve progress document');
             }
