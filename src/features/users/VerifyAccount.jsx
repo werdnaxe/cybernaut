@@ -24,6 +24,11 @@ export default function VerifyAccount() {
                 await axios.post(`http://localhost:5000/api/auth/verify-token?token=${token}`);
                 setStatus('success');
                 setMessage('Your account has been successfuly verified!');
+
+                // Clear out local storage items to get rid of the 'Resend Link' button
+                localStorage.removeItem('signup_success');
+                localStorage.removeItem('signup_email');
+
                 setTimeout(() => { navigate('/user-forms'); }, 3000);   // redirect user to login page after 3 seconds
             } catch (error) {
                 console.error('Error verifying account:', error);
