@@ -66,12 +66,38 @@ const MM1 = () => {
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
 
-    if (segmentIndex === 0) progressStep = 1;   // welcome
-    if (segmentIndex === 1) progressStep = 2;   // ad decision
-    if (segmentIndex >= 2) progressStep = 3   // cookie decision
-    if (segmentIndex === 4) progressStep = 5;   // good cookie result - final
-    if (segmentIndex === 5) progressStep = 4;   // customization decision
-    if (segmentIndex >= 6) progressStep = 5;   // good/bad customization result or good ad result - final
+    // Define progress based on the actual progression through the module
+    switch (segmentIndex) {
+      case 0: // Welcome
+        progressStep = 1;
+        break;
+      case 1: // Ad decision
+        progressStep = 2;
+        break;
+      case 2: // Cookie decision (after clicking ad)
+        progressStep = 3;
+        break;
+      case 3: // Bad outcome (accepted all cookies)
+        progressStep = 5;
+        break;
+      case 4: // Good ending (rejected all cookies)
+        progressStep = 5;
+        break;
+      case 5: // Customization decision
+        progressStep = 4;
+        break;
+      case 6: // Good ending (necessary cookies only)
+        progressStep = 5;
+        break;
+      case 7: // Bad outcome (accepted unnecessary cookies)
+        progressStep = 5;
+        break;
+      case 8: // Good ending (rejected ad)
+        progressStep = 5;
+        break;
+      default:
+        progressStep = Math.min(segmentIndex + 1, totalProgressSteps);
+    }
 
     setActualProgress(progressStep);
   };
@@ -106,13 +132,7 @@ const MM1 = () => {
 
   // Function to determine if we're at the actual end of the module
   const isAtModuleEnd = () => {
-    const current = moduleSegments[currentSegment];
-    return (
-      current.title === "You rejected all cookies." ||
-      current.title === "You only accepted necessary cookies." ||
-      current.title === "You accepted unnecessary cookies." ||
-      current.title === "You rejected the ad."
-    );
+    return [3, 4, 6, 7, 8].includes(currentSegment);
   };
 
   // Module segments
@@ -382,17 +402,23 @@ const MM1 = () => {
 
   const handlePrevious = () => {
     const current = moduleSegments[currentSegment];
+    let previousSegment;
     
-    // Always go back to the last decision index if it exists
-    if (lastDecisionIndex !== null && !hasGoneBackToLastDecision) {
-      setCurrentSegment(lastDecisionIndex);
-      setHasGoneBackToLastDecision(true);
+    // If on an outcome segment, go back to the decision that led here (Try Again)
+    if (current.type === "outcome" && lastDecisionIndex !== null) {
+      previousSegment = lastDecisionIndex;
+      setCurrentSegment(previousSegment);
+      updateActualProgress(previousSegment);
       return;
     }
 
+    // TODO: Repeat above for "good" segments
+
     // Otherwise, go to previous segment
     if (currentSegment > 0) {
-      setCurrentSegment(currentSegment - 1);
+      previousSegment = currentSegment - 1;
+      setCurrentSegment(previousSegment);
+      updateActualProgress(previousSegment);
     }
   };
 
@@ -407,7 +433,7 @@ const MM1 = () => {
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">
@@ -449,7 +475,7 @@ const MM1 = () => {
                 className="bg-blue-600 h-8 rounded-full transition-all duration-300 ease-in-out relative"
                 style={{ width: `${progressPercentage}%` }}
               >
-                {currentSegment > 0 && (
+                {actualProgress > 0 && (
                   <span className="absolute inset-0 flex items-center justify-center text-white font-medium">
                     {Math.round(progressPercentage)}%
                   </span>
@@ -488,7 +514,3 @@ const MM1 = () => {
 };
 
 export default MM1;
-
-/* BUGS/FIXES:
-   1. Inconsistency - wrong answer on Cookie Preferences does not udpate progress, whereas wrong answer on Customization does.
-*/

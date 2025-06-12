@@ -427,7 +427,7 @@ const MM2 = () => {
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">

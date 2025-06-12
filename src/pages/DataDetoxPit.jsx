@@ -45,13 +45,6 @@ const DataDetoxPit = () => {
         disabled:bg-gray-500 disabled:cursor-not-allowed">
         Module 3
       </button>
-      <button
-        disabled={isDisabled4}
-        className="
-        absolute top-145 left-155 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
-        Module 4
-      </button>
     </div>
   )
 }
