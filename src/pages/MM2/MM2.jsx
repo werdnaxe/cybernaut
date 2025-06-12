@@ -20,7 +20,7 @@ const MM2 = () => {
   const navigate = useNavigate();
 
   // Module state management variables
-  const currentModule = 6;
+  const currentModule = 5;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   const [hasGoneBackToLastDecision, setHasGoneBackToLastDecision] = useState(false);
@@ -271,7 +271,7 @@ const MM2 = () => {
       console.log('Cannot proceed - interaction required');
       return;
     }
-    
+
     // Check for endings by title
     if (isAtModuleEnd()) {
       handleClickFinish();
@@ -282,6 +282,7 @@ const MM2 = () => {
 
     // SAFETY CHECK: If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
       navigate('/mysterymountain');
       return;

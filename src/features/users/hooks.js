@@ -28,15 +28,12 @@ export function useCreateUser() {
       { title: 'SMSP', nextSubmodule: 1, isDisabled: false },
       { title: 'SMSP', nextSubmodule: 2, isDisabled: true },
       { title: 'SMSP', nextSubmodule: 3, isDisabled: true },
-      { title: 'SMSP', nextSubmodule: 4, isDisabled: true },
+      { title: 'MM', nextSubmodule: 4, isDisabled: true },
       { title: 'MM', nextSubmodule: 5, isDisabled: true },
       { title: 'MM', nextSubmodule: 6, isDisabled: true },
-      { title: 'MM', nextSubmodule: 7, isDisabled: true },
-      { title: 'MM', nextSubmodule: 8, isDisabled: true },
+      { title: 'DDP', nextSubmodule: 7, isDisabled: true },
+      { title: 'DDP', nextSubmodule: 8, isDisabled: true },
       { title: 'DDP', nextSubmodule: 9, isDisabled: true },
-      { title: 'DDP', nextSubmodule: 10, isDisabled: true },
-      { title: 'DDP', nextSubmodule: 11, isDisabled: true },
-      { title: 'DDP', nextSubmodule: 12, isDisabled: true }
     ]
 
     const newProgress = await usersAPI.createProgress({ 

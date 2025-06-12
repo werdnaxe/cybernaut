@@ -18,11 +18,11 @@ const DDP2 = () => {
   const navigate = useNavigate();
 
   // Module state management variables
-  const currentModule = 5;
+  const currentModule = 8;
+  const { completeModule } = useCompleteModule();
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   const [hasGoneBackToLastDecision, setHasGoneBackToLastDecision] = useState(false);
-  const { completeModule } = useCompleteModule();
   const totalSegments = 8;
   
   // Track actual progress through the decision tree
@@ -47,7 +47,7 @@ const DDP2 = () => {
   const handleClickFinish = async () => {
     const result = await completeModule(
       {
-        title: "MM",
+        title: "DDP",
         nextSubmodule: currentModule + 1,
         isDisabled: false,
         actualProgress,
@@ -86,12 +86,12 @@ const DDP2 = () => {
       return true;
     }
 
-    if (currentSegment === 3) {
-      return decision === 'Yes' || decision === 'No';
+    if (currentSegment === 2) {
+      return decision !== '';
     }
 
-    if (currentSegment === 6) {
-      return ['Accept all', 'Reject all', 'Customize'].includes(decision);
+    if (currentSegment === 5) {
+      return decision !== '';
     }
 
     return true;   // default to allow proceeding
@@ -219,7 +219,7 @@ const DDP2 = () => {
       content: "Good job! You recognized that you were in a scrolling trap and took action to break free. This is an important skill to develop, especially in today's digital world.",
       interactive: (
         <Narrator
-          text="While choosing whether or not to click on ads is a personal decision, rejecting ads can help you avoid tracking and data collection that can be used to target you for advertising."
+          text="It's important to recognize when you're in a scrolling trap and take steps to break free. Cybernaut decided to close the app and try to sleep, which is a great choice."
           image={cybernautCharacter}
         />
       )
@@ -231,6 +231,7 @@ const DDP2 = () => {
     console.log('=== handleNext DEBUG ===');
     console.log('Current Segment:', currentSegment);
     console.log('Can Proceed?', canProceed());
+    setDecision('');
     
     // Don't allow proceeding if validation fails
     if (!canProceed()) {
@@ -238,18 +239,11 @@ const DDP2 = () => {
       return;
     }
     
-    // Check for endings by title
-    if (isAtModuleEnd()) {
-      handleClickFinish();
-      console.log('NAVIGATING - end segment reached');
-      navigate('/mysterymountain');
-      return;
-    }
-
     // SAFETY CHECK: If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
-      navigate('/mysterymountain');
+      navigate('/datadetoxpit');
       return;
     }
 
@@ -292,7 +286,7 @@ const DDP2 = () => {
       // If next segment would be out of bounds, navigate
       if (nextSegment >= moduleSegments.length) {
         console.log('NAVIGATING - outcome leads past end');
-        navigate('/mysterymountain');
+        navigate('/datadetoxpit');
         return;
       }
       
@@ -316,12 +310,20 @@ const DDP2 = () => {
       // If we've reached the end, navigate
       if (nextSegment >= moduleSegments.length) {
         console.log('NAVIGATING - reached end through good path');
-        navigate('/mysterymountain');
+        navigate('/datadetoxpit');
         return;
       }
       
       setCurrentSegment(nextSegment);
       updateActualProgress(nextSegment);
+      return;
+    }
+
+    // Check for endings by title
+    if (isAtModuleEnd()) {
+      handleClickFinish();
+      console.log('NAVIGATING - end segment reached');
+      navigate('/datadetoxpit');
       return;
     }
 
@@ -332,7 +334,7 @@ const DDP2 = () => {
       updateActualProgress(nextSegment);
     } else {
       console.log('NAVIGATING - reached final segment fallback');
-      navigate('/mysterymountain');
+      navigate('/datadetoxpit');
     }
 
   };

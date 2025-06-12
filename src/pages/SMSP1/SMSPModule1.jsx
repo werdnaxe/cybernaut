@@ -286,7 +286,7 @@ const SMSPModule1 = () => {
       console.log('Cannot proceed - interaction required');
       return;
     }
-
+  
     // Check for specific ending segments by title
     if (isAtModuleEnd()) {
       handleClickFinish();
@@ -297,6 +297,7 @@ const SMSPModule1 = () => {
     
     // If we're at or past the last segment, navigate immediately
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
       navigate('/SocialMediaPassage');
       return;

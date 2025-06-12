@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCompleteModule } from '../../features/users/hooks';
 import '../Cybernaut.css';
 
 import Narrator from '../../components/Narrator';
@@ -18,9 +19,11 @@ import billboard from './billboard.png';
 const MM3 = () => {
   const navigate = useNavigate();
 
+  const currentModule = 6;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
-  
+  const { completeModule } = useCompleteModule();
+
   const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 4;
   
@@ -31,6 +34,32 @@ const MM3 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
+
+  // Update progress doc upon completion of module if user is logged in
+  const handleClickFinish = async () => {
+    const result = await completeModule(
+      {
+        title: "SMSP",
+        nextSubmodule: currentModule + 1,
+        isDisabled: false,
+        actualProgress,
+        totalProgressSteps
+      }
+    );
+
+    if (result.success === true) {
+      console.log(result.message);
+    }
+    else {
+      console.error('Error updating progress:', result.message);
+    }
+  };
 
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
@@ -218,8 +247,17 @@ const MM3 = () => {
       return;
     }
     
+    // Check for module end
+    if (isAtModuleEnd()) {
+      handleClickFinish();
+      console.log('NAVIGATING - end segment reached');
+      navigate('/mysterymountain');
+      return;
+    }
+
     // If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
       navigate('/mysterymountain');
       return;
@@ -308,13 +346,6 @@ const MM3 = () => {
       
       setCurrentSegment(nextIndex);
       updateActualProgress(nextIndex);
-      return;
-    }
-
-    // Check for module end
-    if (isAtModuleEnd()) {
-      console.log('NAVIGATING - end segment reached');
-      navigate('/mysterymountain');
       return;
     }
 

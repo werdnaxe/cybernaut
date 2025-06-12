@@ -9,10 +9,9 @@ const MtMystery = () => {
   }
 
   const isLoggedIn = progress !== null && progress !== undefined;
-  const isDisabled1 = isLoggedIn ? progress.modules[4].isDisabled : false;
-  const isDisabled2 = isLoggedIn ? progress.modules[5].isDisabled : false;
-  const isDisabled3 = isLoggedIn ? progress.modules[6].isDisabled : false;
-  const isDisabled4 = isLoggedIn ? progress.modules[7].isDisabled : false;
+  const isDisabled1 = isLoggedIn ? progress.modules[3].isDisabled : false;
+  const isDisabled2 = isLoggedIn ? progress.modules[4].isDisabled : false;
+  const isDisabled3 = isLoggedIn ? progress.modules[5].isDisabled : false;
 
   return (
     <div className="relative bg-[url('src/assets/mtmysterypath.png')] bg-top bg-no-repeat min-h-[100vh] w-full p-5">
@@ -43,7 +42,8 @@ const MtMystery = () => {
         disabled={isDisabled3}
         className="
         absolute top-150 left-170 bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/MM3'}>
         Module 3
       </button>
     </div>

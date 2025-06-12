@@ -12,7 +12,6 @@ const SocialMediaPassage = () => {
   const isLoggedIn = progress !== null && progress !== undefined;
   const isDisabled2 = isLoggedIn ? progress.modules[1].isDisabled : false;
   const isDisabled3 = isLoggedIn ? progress.modules[2].isDisabled : false;
-  const isDisabled4 = isLoggedIn ? progress.modules[3].isDisabled : false;
 
   return (
     <div 

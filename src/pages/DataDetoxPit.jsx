@@ -9,10 +9,9 @@ const DataDetoxPit = () => {
   }
 
   const isLoggedIn = progress !== null && progress !== undefined;
-  const isDisabled1 = isLoggedIn ? progress.modules[8].isDisabled : false;
-  const isDisabled2 = isLoggedIn ? progress.modules[9].isDisabled : false;
-  const isDisabled3 = isLoggedIn ? progress.modules[10].isDisabled : false;
-  const isDisabled4 = isLoggedIn ? progress.modules[11].isDisabled : false;
+  const isDisabled1 = isLoggedIn ? progress.modules[6].isDisabled : false;
+  const isDisabled2 = isLoggedIn ? progress.modules[7].isDisabled : false;
+  const isDisabled3 = isLoggedIn ? progress.modules[8].isDisabled : false;
 
   return (
     <div className="relative bg-[url('src/assets/datadetoxpath.png')] min-h-screen w-full">
@@ -27,7 +26,8 @@ const DataDetoxPit = () => {
         disabled={isDisabled1}
         className="
         absolute top-80 left-150 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/DDP1'}>
         Module 1
       </button>
       <button
@@ -42,7 +42,8 @@ const DataDetoxPit = () => {
         disabled={isDisabled3}
         className="
         absolute top-120 left-165 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/DDP3'}>
         Module 3
       </button>
     </div>

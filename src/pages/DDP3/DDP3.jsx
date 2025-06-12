@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCompleteModule } from '../../features/users/hooks';
 import '../Cybernaut.css';
 import BreathingTriangle from '../../components/BreathingTriangle';
 import BoxBreathing from '../../components/BoxBreathing';
@@ -20,6 +21,8 @@ import bossRecovering from './boss-recovering.png';
 
 const DDP3 = () => {
   const navigate = useNavigate();
+  const currentModule = 9;
+  const { completeModule } = useCompleteModule();
 
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
@@ -37,6 +40,29 @@ const DDP3 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
+
+  // Update progress doc upon completion of module if user is logged in
+  const handleClickFinish = async () => {
+    const result = await completeModule(
+      {
+        actualProgress,
+        totalProgressSteps
+      }
+    );
+
+    if (result.success === true) {
+      console.log(result.message);
+    }
+    else {
+      console.error('Error updating progress:', result.message);
+    }
+  };
 
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
@@ -335,6 +361,7 @@ const DDP3 = () => {
     }
     
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
       navigate('/datadetoxpit');
       return;

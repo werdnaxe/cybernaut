@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCompleteModule } from '../features/users/hooks';
 import './Cybernaut.css';
 
 import cybernautCharacter from '../assets/standing-cybernaut.png';
@@ -16,6 +17,8 @@ import Narrator from '../components/Narrator';
 const SMSPModule3 = () => {
   const navigate = useNavigate();
 
+  const currentModule = 3;
+  const { completeModule } = useCompleteModule();
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   
@@ -32,6 +35,32 @@ const SMSPModule3 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
+
+  // Update progress doc upon completion of module if user is logged in
+  const handleClickFinish = async () => {
+    const result = await completeModule(
+      {
+        title: "SMSP",
+        nextSubmodule: currentModule + 1,
+        isDisabled: false,
+        actualProgress,
+        totalProgressSteps
+      }
+    );
+
+    if (result.success === true) {
+      console.log(result.message);
+    }
+    else {
+      console.error('Error updating progress:', result.message);
+    }
+  };
 
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
@@ -68,7 +97,9 @@ const SMSPModule3 = () => {
     return true;
   };
 
-    const isAtModuleEnd = () => currentSegment === moduleSegments.length - 1;
+    const isAtModuleEnd = () => {
+      currentSegment === moduleSegments.length - 1;
+    }
 
   const moduleSegments = [
     {
@@ -196,8 +227,17 @@ const SMSPModule3 = () => {
       return;
     }
 
+    // Check for module end
+    if (isAtModuleEnd()) {
+      handleClickFinish();  
+      console.log('NAVIGATING - end segment reached');
+      navigate('/SocialMediaPassage');
+      return;
+    }
+    
     // SAFETY CHECK: If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
+      handleClickFinish();
       console.log('NAVIGATING - at or past last segment');
       navigate('/SocialMediaPassage');
       return;
@@ -263,13 +303,6 @@ const SMSPModule3 = () => {
       
       setCurrentSegment(nextIndex);
       updateActualProgress(nextIndex);
-      return;
-    }
-
-    // Check for module end
-    if (isAtModuleEnd()) {
-      console.log('NAVIGATING - end segment reached');
-      navigate('/SocialMediaPassage');
       return;
     }
 
