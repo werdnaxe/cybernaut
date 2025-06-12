@@ -22,7 +22,7 @@ import DDP3 from './pages/DDP3/DDP3.jsx';
 import SMSPModule3 from './pages/SMSPModule3';
 import MM1 from './pages/MM1/MM1';
 import MM2 from './pages/MM2/MM2';
-import DDPModule1 from './pages/DDP1/DDPModule1'
+import DDP1 from './pages/DDP1/DDP1'
 import DDP2 from './pages/DDP2/DDP2';
 
 
@@ -55,7 +55,7 @@ const App = () => {
           <Route path="/SMSPModule3" element={<SMSPModule3 />} />
           <Route path="/MM1" element={<MM1 />} />
           <Route path="/MM2" element={<MM2 />} />
-          <Route path="/DDP1" element={<DDPModule1 />} />
+          <Route path="/DDP1" element={<DDP1 />} />
           <Route path="/DDP2" element={<DDP2 />} />
         </Routes>
       </main>

@@ -353,14 +353,14 @@ const MM3 = () => {
 
   return (
     <div className="bg-blue-50 p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
+      <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
           Terms of Sneakiness
         </h1>
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">

@@ -357,7 +357,7 @@ const DDP2 = () => {
 
   return (
     <div className="bg-blue-50 p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
+      <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
           Doomscrolling!
         </h1>

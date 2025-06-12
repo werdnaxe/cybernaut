@@ -21,7 +21,7 @@ const DDPModule1 = () => {
   const totalSegments = 9;
 
   const [actualProgress, setActualProgress] = useState(0);
-  const totalProgressSteps = 5;
+  const totalProgressSteps = 7;
 
   const [decision, setDecision] = useState('');
 
@@ -54,7 +54,7 @@ const DDPModule1 = () => {
     if (segmentIndex >= 2) progressStep = 3; // Post results (3/7)
     if (segmentIndex >= 4) progressStep = 4; // Likes decision (4/7)
     if (segmentIndex >= 5) progressStep = 5; // Likes results (5/7)
-    if (segmentIndex >= 8) progressStrep = 6; // Feelings decision 
+    if (segmentIndex >= 8) progressStep = 6; // Feelings decision 
     if (segmentIndex >= 9) progressStep = 7; // Feelings result / end
 
 
@@ -72,22 +72,21 @@ const DDPModule1 = () => {
       return ['Another selfie', 'A filtered selfie', 'Something creative', 'Something silly'].includes(decision);
     }
 
-    if (currentSegment === 5) {
+    if (currentSegment === 4) {
       return ['Keep checking', 'Delete it', 'Talk to a friend', 'Ignore it'].includes(decision);
     }
 
-    if (currentSegment === 9) {
+    if (currentSegment === 8) {
       return ['Talk to someone', 'Take a break', 'Do a breathing exercise', 'Express how you\'re feeling'].includes(decision);
     }
 
-    /* Add quiz options here */
     return true;
   }
 
   const isAtModuleEnd = () => {
     const current = moduleSegments[currentSegment];
     return (
-      current.title === "Placeholder"
+      current.title === "Great job!"
     );
   };
 
@@ -101,7 +100,7 @@ const DDPModule1 = () => {
           <img
             src={noLikes}
             alt="Cybernaut looks sadly at their selfie which received 0 likes."
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -129,7 +128,7 @@ const DDPModule1 = () => {
           <img
             src={filtered}
             alt="cybernaut enhanced with unrealistic filters"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -170,7 +169,7 @@ const DDPModule1 = () => {
           <img
             src={tornado}
             alt="cybernaut being sucked into a tornado"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -184,7 +183,7 @@ const DDPModule1 = () => {
           <img
             src={filteredWin}
             alt="filtered 'perfect' Cybernaut overpowering normal Cybernaut"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -198,7 +197,7 @@ const DDPModule1 = () => {
           <img
             src={filteredLose}
             alt="cybernaut being sucked into a tornado"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -223,7 +222,7 @@ const DDPModule1 = () => {
       content: "Any one of those decisions is correct.",
       interactive: (
           <Narrator
-            text="There are many healthy and mature ways to properly deal with negative emotions stemming from things you see on social media. It is important to recognize how you're feeling"
+            text="It is important to respond in a healthy way when you recognize that social media is currently having a negative effect on you."
             image={cybernautCharacter}
           />
       )
@@ -344,9 +343,9 @@ const DDPModule1 = () => {
 
   return (
     <div className="bg-blue-50 p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
+      <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-lg p-8 relative h-[900px]">
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
-          Cookies!
+          Filters and Feelings
         </h1>
         
         <div className="mb-20">
