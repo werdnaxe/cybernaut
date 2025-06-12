@@ -11,6 +11,7 @@ import cybernautCharacter from '../../assets/standing-cybernaut.png';
 import cookieOptions from './MM1-cookie-options.png';
 import evilCookies from './MM1-evil-cookies.png';
 import sinkholeMerch from './MM1-sinkhole-merch.png';
+import titleImage from './MM1-title.png';
 
 const MM1 = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const MM1 = () => {
   const currentModule = 5;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
+  const [hasGoneBackToLastDecision, setHasGoneBackToLastDecision] = useState(false);
   const { completeModule } = useCompleteModule();
   const totalSegments = 9;
   
@@ -33,6 +35,12 @@ const MM1 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
 
   // Update progress doc upon completion of module if user is logged in
   const handleClickFinish = async () => {
@@ -50,7 +58,7 @@ const MM1 = () => {
       console.log(result.message);
     }
     else {
-      console.error('Error updating progress:', result.error);
+      console.error('Error updating progress:', result.message);
     }
   };
 
@@ -110,15 +118,15 @@ const MM1 = () => {
   // Module segments
   const moduleSegments = [
     {
-      title: "Welcome to the Cookie Monster's Lair", 
+      title: "Welcome.", 
       type: "static",
       content: "Time to help Cybernaut navigate the world of digital cookies.", 
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
            <img
-            src={cybernautCharacter}   // TODO: Replace later
-            alt="Cookie Monster Title"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            src={titleImage}
+            alt="Cybernaut and bad cookies"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -276,6 +284,7 @@ const MM1 = () => {
       const seeAd = decision;
       console.log('User clicked on ad?', seeAd);
       setLastDecisionIndex(currentSegment);
+      setHasGoneBackToLastDecision(false);
       const nextSegment = seeAd === 'Yes' ? 2 : 8;   // continue = 2, good (final) = 8
       setCurrentSegment(nextSegment);
       updateActualProgress(nextSegment);
@@ -287,6 +296,7 @@ const MM1 = () => {
       const cookieOption = decision;
       console.log('User selected cookie option:', cookieOption);
       setLastDecisionIndex(currentSegment);
+      setHasGoneBackToLastDecision(false);
       let nextSegment;
       switch (cookieOption) {
         case 'Accept all':
@@ -310,6 +320,7 @@ const MM1 = () => {
       const customization = decision;
       console.log('User customized cookie:', customization);
       setLastDecisionIndex(currentSegment);
+      setHasGoneBackToLastDecision(false);
       const nextSegment = customization === 'Necessary' ? 6 : 7;   // good = 6, bad = 7
       setCurrentSegment(nextSegment);
       updateActualProgress(nextSegment);
@@ -372,13 +383,12 @@ const MM1 = () => {
   const handlePrevious = () => {
     const current = moduleSegments[currentSegment];
     
-    // If on an outcome segment, go back to the decision that led here (Try Again)
-    if (current.type === "outcome" && lastDecisionIndex !== null) {
+    // Always go back to the last decision index if it exists
+    if (lastDecisionIndex !== null && !hasGoneBackToLastDecision) {
       setCurrentSegment(lastDecisionIndex);
+      setHasGoneBackToLastDecision(true);
       return;
     }
-
-    // TODO: Repeat above for "good" segments
 
     // Otherwise, go to previous segment
     if (currentSegment > 0) {
@@ -387,8 +397,6 @@ const MM1 = () => {
   };
 
   const progressPercentage = (actualProgress / totalProgressSteps) * 100;
-  const XP = actualProgress * (100 / totalProgressSteps);
-  console.log('XP:', XP);
 
   return (
     <div className="bg-blue-50 p-8">
@@ -482,7 +490,5 @@ const MM1 = () => {
 export default MM1;
 
 /* BUGS/FIXES:
-  1. Hitting "Previous" after any decision will take you back one instead of to previous segment (the one you came from).
-  2. Progress bar does not always update correctly (e.g., when going back).
-  3. On 'Customize', bad decision updates progress bar (this is currently the intended behavior). Either change this or make all bad decision behavior consistent.
+   1. Inconsistency - wrong answer on Cookie Preferences does not udpate progress, whereas wrong answer on Customization does.
 */

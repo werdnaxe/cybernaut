@@ -14,6 +14,7 @@ import cybOnToilet from './MM2-cyb-on-toilet.png';
 import friendsFall from './MM2-friends-fall.png';
 import oneFalls from './MM2-one-falls.png';
 import permissions from './MM2-permissions.png';
+import titleImage from './MM2-title.png';
 
 const MM2 = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const MM2 = () => {
   const currentModule = 6;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
+  const [hasGoneBackToLastDecision, setHasGoneBackToLastDecision] = useState(false);
   const { completeModule } = useCompleteModule();
   const totalSegments = 10;
   
@@ -36,6 +38,12 @@ const MM2 = () => {
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
+
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
 
   // Update progress doc upon completion of module if user is logged in
   const handleClickFinish = async () => {
@@ -53,7 +61,7 @@ const MM2 = () => {
       console.log(result.message);
     }
     else {
-      console.error('Error updating progress:', result.error);
+      console.error('Error updating progress:', result.message);
     }
   };
 
@@ -108,15 +116,15 @@ const MM2 = () => {
   // Module segments
   const moduleSegments = [
     {
-      title: "Don't get Sucked in.", 
+      title: "Welcome.", 
       type: "static",
       content: "Help Cybernaut learn how to use Sinkhole safely and responsibly for communicating with others.", 
       interactive: (
         <div className="flex flex-col items-center justify-center space-y-6 p-8">
            <img
-            src={cybernautCharacter}   // TODO: Replace later
-            alt="Cookie Monster Title"
-            className="w-[300px] h-auto rounded-lg shadow-md"
+            src={titleImage}
+            alt="Cybernaut next to a sinkhole"
+            className="w-[600px] h-auto rounded-lg shadow-md"
           />
         </div>
       )
@@ -289,6 +297,7 @@ const MM2 = () => {
     if (currentSegment === 2) {
       console.log('User selected:', decision);
       setLastDecisionIndex(currentSegment);
+      setHasGoneBackToLastDecision(false);
       let nextSegment;
       switch (decision) {
         case 'Anything':
@@ -314,6 +323,7 @@ const MM2 = () => {
     if (currentSegment === 6) {
       console.log('User selected:', decision);
       setLastDecisionIndex(currentSegment);
+      setHasGoneBackToLastDecision(false);
       let nextSegment;
       switch (decision) {
         case 'Allow full access':
@@ -388,21 +398,17 @@ const MM2 = () => {
       navigate('/mysterymountain');
     }
 
-    const XP = actualProgress * (100 / totalProgressSteps);
-    console.log('XP:', XP);
-
   };
 
   const handlePrevious = () => {
     const current = moduleSegments[currentSegment];
     
-    // If on an outcome segment, go back to the decision that led here (Try Again)
-    if (current.type === "outcome" && lastDecisionIndex !== null) {
+    // Always go back to the last decision index if it exists
+    if (lastDecisionIndex !== null && !hasGoneBackToLastDecision) {
       setCurrentSegment(lastDecisionIndex);
+      setHasGoneBackToLastDecision(true);
       return;
     }
-
-    // TODO: Repeat above for "good" segments
 
     // Otherwise, go to previous segment
     if (currentSegment > 0) {

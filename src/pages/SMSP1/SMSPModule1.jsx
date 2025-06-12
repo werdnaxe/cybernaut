@@ -44,6 +44,12 @@ const SMSPModule1 = () => {
     updateActualProgress(currentSegment);
   }, []);
 
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
+
   // Update progress doc upon completion of module if user is logged in
   const handleClickFinish = async () => {
     const result = await completeModule(
@@ -60,7 +66,7 @@ const SMSPModule1 = () => {
       console.log(result.message);
     }
     else {
-      console.error('Error updating progress:', result.error);
+      console.error('Error updating progress:', result.message);
     }
   };
 
@@ -397,8 +403,6 @@ const SMSPModule1 = () => {
       return;
     }
     
-    // TODO: Repeat above for "good" segments
-
     if (currentSegment > 0) {
       setCurrentSegment(currentSegment - 1);
     }
