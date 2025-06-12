@@ -39,7 +39,7 @@ const Contact = () => {
             <img src={emptyProfile} alt="Profile picture" className="w-24 h-24 rounded-full object-cover"/>
             <div className="text-left">
               <h3 className="text-2xl font-bold text-[#275481]">Daniel Szarkowicz</h3>
-              <h4 className="text-lg text-black">example@email.com</h4>
+              <h4 className="text-lg text-black">szarkod@wwu.edu</h4>
               <p className="text-sm">Frontend develeoper</p>
             </div>
           </div>
