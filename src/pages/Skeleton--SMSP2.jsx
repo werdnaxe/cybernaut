@@ -50,11 +50,7 @@ const SkeletonSMSP2 = () => {
   const canProceed = () => {
     const current = moduleSegments[currentSegment];
 
-    if (current.type === "outcome") {
-    // Disable Next on outcome segment
-    return false;
-  }
-    // Always allow proceeding for non-decision segments
+    // Always allow proceeding for non-decision segments (including outcome segments)
     if (current.type !== "decision") {
       return true;
     }
@@ -67,12 +63,7 @@ const SkeletonSMSP2 = () => {
     if (currentSegment === 6) {
       return quizActionHateComment && quizActionHateComment.length > 0;
     }
-
-    if (currentSegment === 4) {
-      return false;
-    }
-
-    // For template purposes, always allow proceeding
+    
     return true;
   };
 
@@ -355,7 +346,7 @@ const SkeletonSMSP2 = () => {
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">
