@@ -24,7 +24,7 @@ function Home() {
       }}
     >
       {/* Main content container */}
-      <div className="h-screen flex items-center justify-center relative">
+      <div className="h-screen flex items-center font-zing text-center justify-center relative">
         
         {/* Narrator Component - Scaled up for homepage with zoom-responsive scaling */}
         <div 
@@ -35,10 +35,10 @@ function Home() {
             maxHeight: '90vh'
           }}
         >
-          <Narrator
-            text="HI! I'M YOUR CYBERNAUT."
+          <Narrator className="text-center"
+            text="Hi! I'm Cybernaut. Click the continue button to start your journey!"
             image={cybernautCharacter}
-            float
+            float         
           />
         </div>
 
