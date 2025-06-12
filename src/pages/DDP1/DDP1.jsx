@@ -14,7 +14,7 @@ import filteredLose from './DDP1-filtered-cyb-defeated.png';
 
 const DDPModule1 = () => {
   const navigate = useNavigate();
-  const currentModule = 9;
+  const currentModule = 7;
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   const { completeModule } = useCompleteModule();
@@ -29,6 +29,13 @@ const DDPModule1 = () => {
     updateActualProgress(currentSegment);
   }, []);
 
+  // Update XP whenever game progress updates
+  useEffect(() => {
+    const XP = actualProgress * (100 / totalProgressSteps);
+    console.log('XP:', XP);
+  }, [actualProgress, totalProgressSteps]);
+
+  // Update progress doc upon completion of module if user is logged in
   const handleClickFinish = async () => {
     const result = await completeModule(
       {
@@ -39,11 +46,12 @@ const DDPModule1 = () => {
         totalProgressSteps
       }
     );
+
     if (result.success === true) {
       console.log(result.message);
     }
     else {
-      console.error('Error updating progress:', result.error);
+      console.error('Error updating progress:', result.message);
     }
   };
 

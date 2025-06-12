@@ -64,7 +64,7 @@ export function useCompleteModule() {
 
     // Check here to see if next module is already unlocked (has been updated previously)
     if (progress.modules.some(module => module.nextSubmodule === nextSubmodule && !module.isDisabled)) {
-      return { success: false, message: 'Next module is already unlocked' };   // will ensure extra XP points are not added to user's progress
+      return { success: false, message: 'Next module is already unlocked' };   // will ensure extra XP points are not added to user's progress. NOTE: need to fix for last module
     }
 
     // Map through existing modules to find the one to update (AKA the next one)
