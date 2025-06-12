@@ -7,6 +7,12 @@ import { useAuthContext } from "../features/users/AuthProvider";
 const Dashboard = () => {
     const { progress } = useAuthContext(); 
 
+    // Check for next isDisabled = true, and get the module number right before it
+    const nextModuleIndex = progress?.modules?.findIndex(module => module.isDisabled === true); 
+    let currentModule = nextModuleIndex !== -1 ? nextModuleIndex : progress?.modules?.length;   // current module is the one before the first disabled module, or the last module if none are disabled
+
+    // TODO (optional): Link Current Module number to actual module page
+
     // Render the dashboard with user progress information and redirection link to current module/submodule
     return (
         <div className="container mx-auto p-6 max-w-xl">
@@ -15,13 +21,13 @@ const Dashboard = () => {
             <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
                 <div className="flex justify-between items-center">
                     <p className="text-xl font-medium">XP:</p>
-                    <span className="text-xl">{progress?.XP ?? 0}</span>
+                    <span className="text-xl">{progress?.XP ?? 0}</span>   {/* guard against null or undefined progress? */}
                 </div>
 
                 <div className="flex justify-between items-center">
                     <p className="text-xl font-medium">Current Module:</p>
                     <span className="text-xl">
-                        {progress?.submodulePerModule?.[0]?.module ?? "N/A"}
+                        {currentModule}
                     </span>
                 </div>
             </div>

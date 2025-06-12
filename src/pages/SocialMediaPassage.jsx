@@ -1,7 +1,19 @@
 import React from 'react'
 import socmedpassImage from '../assets/socmedpass.png' // Import the image
+import { useAuthContext } from '../features/users/AuthProvider';   // so we can lock modules based on progress
 
 const SocialMediaPassage = () => {
+
+  const { progress } = useAuthContext();
+  if (!progress && progress !== null) {
+    return <div>Loading...</div>;
+  }
+
+  const isLoggedIn = progress !== null && progress !== undefined;
+  const isDisabled2 = isLoggedIn ? progress.modules[1].isDisabled : false;
+  const isDisabled3 = isLoggedIn ? progress.modules[2].isDisabled : false;
+  const isDisabled4 = isLoggedIn ? progress.modules[3].isDisabled : false;
+
   return (
     <div 
       className="relative flex-grow w-full bg-cover bg-center"
@@ -16,26 +28,35 @@ const SocialMediaPassage = () => {
       
       {/* Module buttons - each with its own absolute position */}
       <button
-        className="absolute top-100 left-147 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl" 
+        className="absolute top-100 left-147 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl"
         onClick={() => window.location.href = '/SMSPModule1'}
       > 
         Module 1
       </button>
       
       <button
-        className="absolute top-120 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl"
+        disabled={isDisabled2}      
+        className="
+        absolute top-120 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
         onClick={() => window.location.href = '/skeleton-smsp2'}
       >
         Module 2
       </button>
       
       <button
-        className="absolute top-145 left-155 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl">
+        disabled={isDisabled3}      
+        className="
+        absolute top-145 left-155 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl
+        disabled:bg-gray-500 disabled:cursor-not-allowed">
         Module 3
       </button>
       
       <button
-        className="absolute top-170 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl">
+        disabled={isDisabled4}      
+        className="
+        absolute top-170 left-178 bg-[#90cddb] hover:bg-[#72acba] text-black font-bold py-3 px-10 rounded-full text-center text-2xl
+        disabled:bg-gray-500 disabled:cursor-not-allowed">
         Module 4
       </button>
     </div>

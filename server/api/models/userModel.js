@@ -16,9 +16,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    grade: {
-        type: Number,
-        required: false,
+    verificationToken: {   // used for account verification and resetting password
+        type: String,
+        default: null,
+    },
+    isVerified: {   // has user verified their account?
+        type: Boolean,
+        default: false,
     }
 });
 

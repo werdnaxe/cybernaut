@@ -3,7 +3,15 @@ import { NavLink } from 'react-router-dom'
 import { useAuthContext } from '../features/users/AuthProvider';
 
 const Header = () => {
-  const { user, logoutAction } = useAuthContext();
+  const { user, progress, logoutAction } = useAuthContext();
+
+  if (user && !progress) {
+    return (
+        <div>
+            Loading...
+        </div>
+    )
+  };
 
   return (
     <header className="font-zing bg-blue-800 text-blue-100 py-5 pl-10 pr-10">
@@ -44,10 +52,13 @@ const Header = () => {
                     </>
                 )}
                 
-                {/* Display username and logout button upon user login */}
+                {/* Display username, XP/level, and logout button upon user login */}
                 {user && (
-                    <li>
-                        <span className="text-yellow-200 mr-4">Hi, {user.username}</span>
+                    <li className="flex items-center space-x-4">
+                        <div className="flex flex-col">
+                            <span className="text-yellow-200 mr-4">Hi, {user.username}</span>
+                            <span className="text-yellow-200 mr-4">Level: {progress.XP / 100}</span>
+                        </div>
                         <button onClick={logoutAction} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                             Logout
                         </button>
