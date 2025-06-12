@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative overflow-hidden"
+      className="flex-grow flex bg-cover bg-center relative overflow-hidden"
       style={{ 
         backgroundImage: `url('${background}')`,
         backgroundSize: 'cover',
@@ -24,7 +24,8 @@ function Home() {
       }}
     >
       {/* Main content container */}
-      <div className="h-screen flex items-center font-zing text-center justify-center relative">
+
+      <div className="flex-grow flex items-center font-zing justify-center relative">
         
         {/* Narrator Component - Scaled up for homepage with zoom-responsive scaling */}
         <div 
@@ -33,6 +34,7 @@ function Home() {
             transformOrigin: 'center',
             maxWidth: '95vw',
             maxHeight: '90vh'
+
           }}
         >
           <Narrator className="text-center"

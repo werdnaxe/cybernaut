@@ -7,7 +7,7 @@ import charlotteProfile from '../assets/charlotteprofilepicture.jpg';
 
 const Contact = () => {
   return (
-      <div className="font-zing bg-[#275481] min-h-screen text-center p-6">
+      <div className="font-zing bg-[#275481] flex-grow text-center p-6">
         <Narrator
           text="Hello, I'm Cybernaut! Want to contact us?"
           image={cybernautCharacter}

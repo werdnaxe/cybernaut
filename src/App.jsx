@@ -22,13 +22,17 @@ import DDP3 from './pages/DDP3/DDP3.jsx';
 import SMSPModule3 from './pages/SMSPModule3';
 import MM1 from './pages/MM1/MM1';
 import MM2 from './pages/MM2/MM2';
+import DDP1 from './pages/DDP1/DDP1'
 import DDP2 from './pages/DDP2/DDP2';
+
 
 const App = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main className="max-w-screen-2xl mx-auto">
+    <div className="min-h-screen flex flex-col bg-blue-50">
+      <header className="mx-auto w-full">
+        <Header />
+      </header>
+      <main className="flex-grow flex flex-col max-w-screen-2xl mx-auto w-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -51,6 +55,7 @@ const App = () => {
           <Route path="/SMSPModule3" element={<SMSPModule3 />} />
           <Route path="/MM1" element={<MM1 />} />
           <Route path="/MM2" element={<MM2 />} />
+          <Route path="/DDP1" element={<DDP1 />} />
           <Route path="/DDP2" element={<DDP2 />} />
         </Routes>
       </main>
