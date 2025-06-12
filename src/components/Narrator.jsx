@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Narrator = ({ text, image, float }) => {
+const Narrator = ({ text, image, float, className }) => {
   return (
     <div className="w-full h-full flex items-center justify-center min-h-[400px] p-4">
       {/* Main container with character on left, speech bubble on right */}

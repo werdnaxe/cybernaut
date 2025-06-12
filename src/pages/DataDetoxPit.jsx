@@ -27,14 +27,16 @@ const DataDetoxPit = () => {
         disabled={isDisabled1}
         className="
         absolute top-80 left-150 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/DDP1'}>
         Module 1
       </button>
       <button
         disabled={isDisabled2}
         className="
         absolute top-100 left-135 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
+        disabled:bg-gray-500 disabled:cursor-not-allowed"
+        onClick={() => window.location.href = '/DDP2'}>
         Module 2
       </button>
       <button
@@ -43,13 +45,6 @@ const DataDetoxPit = () => {
         absolute top-120 left-165 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
         disabled:bg-gray-500 disabled:cursor-not-allowed">
         Module 3
-      </button>
-      <button
-        disabled={isDisabled4}
-        className="
-        absolute top-145 left-155 bg-[#7ba0ba] hover:bg-[#67889e] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
-        Module 4
       </button>
     </div>
   )

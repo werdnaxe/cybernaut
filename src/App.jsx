@@ -17,9 +17,14 @@ import ModuleTest from './pages/ModuleTest';
 import VerifyAccount from './features/users/VerifyAccount';
 import SMSPModule1 from './pages/SMSP1/SMSPModule1';
 import SkeletonSMSP2 from './pages/Skeleton--SMSP2';
+import MM3 from './pages/MM3/MM3.jsx';
+import DDP3 from './pages/DDP3/DDP3.jsx';
+import SMSPModule3 from './pages/SMSPModule3';
 import MM1 from './pages/MM1/MM1';
 import MM2 from './pages/MM2/MM2';
-import DDPModule1 from './pages/DDP1/DDPModules1'
+import DDPModule1 from './pages/DDP1/DDPModule1'
+import DDP2 from './pages/DDP2/DDP2';
+
 
 const App = () => {
   return (
@@ -45,9 +50,13 @@ const App = () => {
           <Route path="/destinations" element={<Destinations />} /> 
           <Route path="/SMSPModule1" element={<SMSPModule1 />} />
           <Route path="/skeleton-smsp2" element={<SkeletonSMSP2 />} />
+          <Route path="/MM3" element={<MM3 />} />
+          <Route path="/DDP3" element={<DDP3 />} />
+          <Route path="/SMSPModule3" element={<SMSPModule3 />} />
           <Route path="/MM1" element={<MM1 />} />
           <Route path="/MM2" element={<MM2 />} />
           <Route path="/DDP1" element={<DDPModule1 />} />
+          <Route path="/DDP2" element={<DDP2 />} />
         </Routes>
       </main>
     </div>

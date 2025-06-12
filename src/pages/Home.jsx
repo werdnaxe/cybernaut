@@ -24,21 +24,23 @@ function Home() {
       }}
     >
       {/* Main content container */}
-      <div className="flex-grow flex items-center justify-center relative">
+
+      <div className="flex-grow flex items-center font-zing justify-center relative">
         
         {/* Narrator Component - Scaled up for homepage with zoom-responsive scaling */}
         <div 
           style={{
             transform: 'scale(2.0)',
             transformOrigin: 'center',
-            maxWidth: 'vw',     // Allow it to be bigger
-            maxHeight: '90vh'     // Allow it to be taller
+            maxWidth: '95vw',
+            maxHeight: '90vh'
+
           }}
         >
-          <Narrator
-            text="HI! I'M YOUR CYBERNAUT."
+          <Narrator className="text-center"
+            text="Hi! I'm Cybernaut. Click the continue button to start your journey!"
             image={cybernautCharacter}
-            float
+            float         
           />
         </div>
 

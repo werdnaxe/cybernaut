@@ -2,35 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cybernaut.css';
 
-// TODO: Import your components and assets here
-// import Narrator from '../../components/Narrator';
-// import Quiz from '../../components/Quiz';
-// import TextInputSubmission from '../../components/TextInputSubmission';
-// import cybernautCharacter from '../../assets/standing-cybernaut.png';
-// import yourImage from './your-image.png';
+import cybernautCharacter from '../assets/standing-cybernaut.png';
+import copycatFollow from '../assets/SMSP2-copycat-follow.png';
+import cybernautCopyCat from '../assets/SMSP2-copycat-profile.png';
+import sinkholeHateComment from '../assets/SMSP2-hate-comments.jpeg'
+import cybernautFalling from '../assets/SMSP2-cyb-falling.png'
+import cybernautBeingChased from '../assets/SMSP2-cyb-chased-by-hate.png'
+import cybernautTriumph from '../assets/SMSP2-triumphant-cyb.png';
+import Quiz from '../components/Quiz.jsx';
+import Narrator from '../components/Narrator';
+
 
 const SkeletonSMSP2 = () => {
   const navigate = useNavigate();
 
-  // TODO: Update these state variables based on your module's needs
   const [currentSegment, setCurrentSegment] = useState(0);
   const [lastDecisionIndex, setLastDecisionIndex] = useState(null);
   
-  // TODO: Update progress tracking
   const [actualProgress, setActualProgress] = useState(0);
-  const totalProgressSteps = 5; // TODO: Change this to match your total number of progress steps
+  const totalProgressSteps = 9; // TODO: Change this to match your total number of progress steps
   
-  // TODO: Add state variables for storing user inputs/decisions
-  const [userInput1, setUserInput1] = useState('');
-  const [userInput2, setUserInput2] = useState('');
-  // Add more state variables as needed for your module
+  const [quizAction, setQuizAction] = useState('');
+  const [quizActionHateComment, setQuizActionHateComment] = useState('');
 
   // Initialize progress on component mount
   useEffect(() => {
     updateActualProgress(currentSegment);
   }, []);
 
-  // TODO: Update this function based on your module's progress flow
   const updateActualProgress = (segmentIndex) => {
     let progressStep = 0;
     
@@ -39,150 +38,232 @@ const SkeletonSMSP2 = () => {
     if (segmentIndex >= 2) progressStep = 3; // Step 3
     if (segmentIndex >= 3) progressStep = 4; // Step 4
     if (segmentIndex >= 4) progressStep = 5; // Step 5
-    
+    if (segmentIndex >= 5) progressStep = 5; // Step 5
+    if (segmentIndex >= 6) progressStep = 6; // Step 6
+    if (segmentIndex >= 7) progressStep = 7; // Step 7
+    if (segmentIndex >= 8) progressStep = 8; // Step 8
+    if (segmentIndex >= 9) progressStep = 9; // Step 9
+
     setActualProgress(progressStep);
   };
 
-  // TODO: Update validation logic for when users can proceed
   const canProceed = () => {
     const current = moduleSegments[currentSegment];
-    
-    // Always allow proceeding for non-decision segments
+
+    // Always allow proceeding for non-decision segments (including outcome segments)
     if (current.type !== "decision") {
       return true;
     }
 
-    // For template purposes, always allow proceeding
-    // TODO: Add validation for each decision segment when you customize
+    // Only allow proceeding if an option is selected in the quiz (segment 2)
+    if (currentSegment === 2) {
+      return quizAction && quizAction.length > 0;
+    }
+
+    if (currentSegment === 6) {
+      return quizActionHateComment && quizActionHateComment.length > 0;
+    }
+    
     return true;
   };
 
-  // Function to determine if we're at the actual end of the module
-  const isAtModuleEnd = () => {
-    const current = moduleSegments[currentSegment];
-    return (
-      current.title === "Module Complete!" || // TODO: Update with your final segment title
-      current.title === "Final Outcome" // TODO: Update with your final outcome title
-    );
-  };
+  const isAtModuleEnd = () => currentSegment === moduleSegments.length - 1;
 
-  // TODO: CUSTOMIZE YOUR MODULE SEGMENTS HERE
   const moduleSegments = [
     {
-      title: "Welcome to Module Template", 
+      // Segment 0
+      title: "Cybernaut receives a follow", 
       type: "static",
-      content: "This is a template module you can customize with your own content.", 
+      content: "Cybernaut receives a follow from an account with a name similar to theirs.", 
       interactive: (
-        <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <div className="bg-blue-100 border-2 border-blue-300 rounded-lg p-6 max-w-md text-center">
-            <h3 className="text-xl font-bold text-blue-800 mb-4">Template Instructions</h3>
-            <p className="text-blue-700">
-              Replace this placeholder content with your introduction material, images, videos, or interactive elements.
-            </p>
-          </div>
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={copycatFollow}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '50%', height: 'auto' }}
+          />
         </div>
       )
     },
     {
-      title: "First Decision Point", 
+      // Segment 1
+      title: "Cybernaut investigates the account", 
+      type: "static",
+      content: "Oh no! The account is claiming to be Cybernaut!", 
+      interactive: (
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={cybernautCopyCat}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '50%', height: 'auto' }}
+          />
+        </div>
+      )
+    },
+    {
+      // Segment 2
+      title: "What should Cybernaut do?",
       type: "decision",
-      content: "This is where users would make their first decision. Customize this content and add your interaction components.", 
+      content: "Cybernaut has to do something about this account impersonating them.", 
       interactive: (
-        <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <div className="bg-yellow-100 border-2 border-yellow-300 rounded-lg p-6 max-w-md text-center">
-            <h3 className="text-xl font-bold text-yellow-800 mb-4">Decision Template</h3>
-            <p className="text-yellow-700 mb-4">
-              Add your TextInputSubmission, Quiz, or other interactive components here.
-            </p>
-            <div className="bg-white p-4 rounded border">
-              <p className="text-gray-600 italic">
-                [Your interaction component goes here]
-              </p>
-            </div>
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8">
+            <Quiz
+              options={['Tell an adult', 'Tell a friend', 'Report the account', 'Block the account']} 
+              correctAnswer={null} // Remove correctAnswer to get the actual option text
+              onAnswer={setQuizAction}
+            />
           </div>
-        </div>
-      )
+        )
     },
     {
-      title: "Positive Feedback", 
+      // Segment 3
+      title: "Good idea!", 
       type: "good",
-      content: "This shows when the user makes a good decision. Replace with your positive feedback content.", 
+      content: "Here's why that was the right move...", 
       interactive: (
-        <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <div className="bg-green-100 border-2 border-green-300 rounded-lg p-6 max-w-md text-center">
-            <h3 className="text-xl font-bold text-green-800 mb-4">Good Choice!</h3>
-            <p className="text-green-700">
-              Replace this with your Narrator component, celebration content, or explanation of why the choice was correct.
-            </p>
-          </div>
-        </div>
+        <Narrator
+            text="You made a safe choice! Telling an adult or reporting the account helps protect you and others online."
+            image={cybernautCharacter}
+          />
       )
     },
+    // Segment 4
     {
-      title: "Negative Outcome", 
+      title: "Here's what happened when Cybernaut didn't act on the account...", 
       type: "outcome",
-      content: "This shows the consequence of a poor decision. Replace with your outcome content.", 
+      content: "The impersonating account posted a mean picture of Cybernaut falling down the stairs!", 
       interactive: (
-        <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <div className="bg-red-100 border-2 border-red-300 rounded-lg p-6 max-w-md text-center">
-            <h3 className="text-xl font-bold text-red-800 mb-4">What Happened...</h3>
-            <p className="text-red-700">
-              Replace this with images, videos, or content showing the negative consequences of the poor decision.
-            </p>
-          </div>
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={cybernautFalling}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '50%', height: 'auto' }}
+          />
         </div>
       )
     },
     {
-      title: "Module Complete!", 
-      type: "good",
-      content: "Congratulations! You've completed the template module. This would be your completion screen.", 
+      // Segment 5
+      title: "Cybernaut receives a hate comment", 
+      type: "static",
+      content: "Cybernaut keeps receiving hate comments from people on Sinkhole!", 
       interactive: (
-        <div className="flex flex-col items-center justify-center space-y-6 p-8">
-          <div className="bg-blue-100 border-2 border-blue-300 rounded-lg p-6 max-w-md text-center">
-            <h3 className="text-xl font-bold text-blue-800 mb-4"> Template Complete!</h3>
-            <p className="text-blue-700">
-              Replace this with your completion content, final feedback, or next steps for users.
-            </p>
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={sinkholeHateComment}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '50%', height: 'auto' }}
+          />
+        </div>
+      )
+    },
+    {
+      // Segment 6
+      title: "What should Cybernaut do?", 
+      type: "decision",
+      content: "Cybernaut needs to do something about the hate comment.", 
+      interactive: (
+        <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8">
+            <Quiz
+              options={['Google what to do', 'Delete the comment', 'Ignore the comment', 'Tell an adult']} 
+              correctAnswer={null} // Remove correctAnswer to get the actual option text
+              onAnswer={setQuizActionHateComment}
+            />
           </div>
+      )
+    },
+    {
+      // Segment 7
+      title: "Nice work!", 
+      type: "good",
+      content: "Here's why that was the right move...", 
+      interactive: (
+        <Narrator
+            text="Telling an adult is always a good idea, but Googling what to do also works! Sometimes, online recources can be helpful to manage stressful online situations."
+            image={cybernautCharacter}
+          />
+      )
+    },
+    {
+      // Segment 8
+      title: "Uh oh...", 
+      type: "outcome",
+      content: "Cybernaut continues to get overwhelmed with hate comments!", 
+      interactive: (
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={cybernautBeingChased}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '80%', height: 'auto' }}
+          />
+        </div>
+      )
+    },
+    {
+      // Segment 9
+      title: "You completed the module!", 
+      type: "good",
+      content: "Congratulations! You completed this module! You successfully learned how to handle online impersonation and hate comments.", 
+      interactive: (
+        <div className="flex flex-col items-center justify-center p-8">
+        <img
+            src={cybernautTriumph}
+            alt="Cybernaut handles a follow"
+            className="rounded-lg shadow-lg"
+            style={{ maxWidth: '80%', height: 'auto' }}
+          />
         </div>
       )
     }
   ];
 
-  // TODO: UPDATE DECISION LOGIC HERE
   const handleNext = () => {
     console.log('=== handleNext DEBUG ===');
     console.log('Current Segment:', currentSegment);
     console.log('Can Proceed?', canProceed());
-    
+
     // Don't allow proceeding if validation fails
     if (!canProceed()) {
       console.log('Cannot proceed - interaction required');
       return;
     }
-    
+
     // SAFETY CHECK: If we're at or past the last segment, navigate
     if (currentSegment >= moduleSegments.length - 1) {
       console.log('NAVIGATING - at or past last segment');
-      navigate('/SocialMediaPassage'); // Navigate back to Social Media Safe Passage
+      navigate('/SocialMediaPassage');
       return;
     }
 
     const current = moduleSegments[currentSegment];
 
-    // TODO: ADD YOUR DECISION LOGIC HERE
-    if (currentSegment === 1) {
-      // Example: First decision logic (for template, we'll just alternate)
+    if(current.type === "decision" && currentSegment !== 1) {
       setLastDecisionIndex(currentSegment);
-      
-      // For template: randomly go to good or bad outcome
-      const isGoodChoice = Math.random() > 0.5; // Random for demo purposes
-      const nextSegment = isGoodChoice ? 2 : 3; // good outcome : bad outcome
-      
-      setCurrentSegment(nextSegment);
-      updateActualProgress(nextSegment);
-      return;
+
+      if (currentSegment === 2) {
+        // First decision segment
+        const isGoodChoice = quizAction === 'Report the account' || quizAction === 'Tell an adult';
+        const nextSegment = isGoodChoice ? 3 : 4; // Good choice leads to segment 3, bad choice to segment 4
+        setCurrentSegment(nextSegment);
+        updateActualProgress(nextSegment);
+        return;
+      }
+
+      if (currentSegment === 6) {
+        // Second decision segment
+        console.log('quizActionHateComment:', quizActionHateComment);
+        const isGoodChoiceSecond = quizActionHateComment === 'Google what to do' || quizActionHateComment === 'Tell an adult';
+        const nextSegment = isGoodChoiceSecond ? 7 : 8; // Good choice leads to segment 8, bad choice to segment 9
+        setCurrentSegment(nextSegment);
+        updateActualProgress(nextSegment);
+        return;
+      }
+
     }
 
     // Handle outcome segments (bad choice results)
@@ -259,14 +340,13 @@ const SkeletonSMSP2 = () => {
   return (
     <div className="bg-blue-50 p-8">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 relative">
-        {/* TODO: Update module title */}
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
-          Module Template
+          Online Impersonation and Hate Comments
         </h1>
         
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-4 text-blue-700">
-            {currentSegment + 1}. {moduleSegments[currentSegment].title}
+            {moduleSegments[currentSegment].title}
           </h2>
           <div className="prose max-w-none">
             <p className="text-lg">
@@ -347,47 +427,3 @@ const SkeletonSMSP2 = () => {
 };
 
 export default SkeletonSMSP2;
-
-/* 
-INSTRUCTIONS FOR USING THIS TEMPLATE:
-
-1. SETUP:
-   - Copy this file and rename it to your module name (e.g., MyNewModule.jsx)
-   - Update all imports at the top with your actual assets and components
-   - Update the component name from ModuleTemplate to your module name
-
-2. CONFIGURE BASIC SETTINGS:
-   - Update totalProgressSteps to match your module's length
-   - Add state variables for any user inputs your module needs
-   - Update the module title in the JSX
-
-3. CREATE YOUR CONTENT:
-   - Replace the moduleSegments array with your actual content
-   - Each segment needs: title, type, content, and interactive JSX
-   - Segment types: "static", "decision", "good", "outcome"
-
-4. ADD DECISION LOGIC:
-   - In handleNext(), add your decision logic for each decision segment
-   - Update the navigation destination (currently '/destinations')
-   - Update canProceed() with validation for your decision points
-
-5. UPDATE PROGRESS TRACKING:
-   - Modify updateActualProgress() to match your module's flow
-   - Update isAtModuleEnd() with your final segment titles
-
-6. TEST YOUR MODULE:
-   - Test all decision paths (good and bad choices)
-   - Verify progress tracking works correctly
-   - Check that navigation works properly
-
-SEGMENT TYPES EXPLAINED:
-- "static": Information/intro segments with no user interaction required
-- "decision": Requires user input before proceeding (text input, quiz, etc.)
-- "good": Positive feedback shown after a good decision
-- "outcome": Negative consequence shown after a bad decision
-
-TIPS:
-- Look at the original SMSPModule1.jsx for examples of complex decision logic
-- Use console.log statements to debug your decision flow
-- Test edge cases like going back from outcome segments
-*/

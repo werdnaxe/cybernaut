@@ -46,13 +46,6 @@ const MtMystery = () => {
         disabled:bg-gray-500 disabled:cursor-not-allowed">
         Module 3
       </button>
-      <button
-        disabled={isDisabled4}
-        className="
-        absolute top-173 left-133 bg-[#537fb2] hover:bg-[#436b9a] text-black font-zing font-bold py-3 px-10 rounded-full text-center option-button text-2xl
-        disabled:bg-gray-500 disabled:cursor-not-allowed">
-        Module 4
-      </button>
     </div>
   )
 }

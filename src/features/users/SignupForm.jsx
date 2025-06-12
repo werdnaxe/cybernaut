@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useCreateUser } from './hooks'
+import axios from 'axios';
 
 export default function SignupForm() {
   const [form, setForm] = useState({
@@ -11,6 +12,9 @@ export default function SignupForm() {
   });
   const { createUser } = useCreateUser();
   const [error, setError] = useState(null);
+
+  const [success, setSuccess] = useState(() => localStorage.getItem('signup_success') === 'true');
+  const [signupEmail, setSignupEmail] = useState(() => localStorage.getItem('signup_email') || '');
 
   const handleChange = (e) => {
     setForm(f => ({...f, [e.target.name]: e.target.value}));
@@ -23,6 +27,13 @@ export default function SignupForm() {
     try {
       await createUser(form);
       alert('User created! Please check your email to verify your account.');
+
+      // Update success state here to unlock 'Resend Link' button
+      setSuccess(true);
+      setSignupEmail(form.email);
+      localStorage.setItem('signup_success', 'true');   // remember success state across page reloads
+      localStorage.setItem('signup_email', form.email);   // remember email across page reloads
+
       setForm({ 
         username: '',
         email: '',
@@ -61,6 +72,23 @@ export default function SignupForm() {
             Create User
           </button>
         </form>
+
+          {/* Show 'Resend Link' button only if user was successfully created. Clicking on it will make another call to /auth/verify-account. Currently, this link only disappears when user verifies account. */}
+          {success && (
+            <button 
+              className="mt-4 w-full bg-green-600 text-white py-2 rounded"
+              type="submit"
+              onClick={async () => {
+                try {
+                  await axios.post('http://localhost:5000/api/auth/verify-account', { email: signupEmail });
+                  alert('Verification email resent! Please check your inbox.');
+                } catch (error) {
+                  console.error('Error resending verification link:', error);
+                }
+              }}>
+              Resend Link
+            </button>
+          )}
     </div>
   )
 }

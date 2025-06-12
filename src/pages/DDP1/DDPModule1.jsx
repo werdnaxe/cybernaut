@@ -20,7 +20,7 @@ const DDPModule1 = () => {
   const { completeModule } = useCompleteModule();
   const totalSegments = 9;
 
-  const [actualProgess, setActualProgress] = useState(0);
+  const [actualProgress, setActualProgress] = useState(0);
   const totalProgressSteps = 5;
 
   const [decision, setDecision] = useState('');
