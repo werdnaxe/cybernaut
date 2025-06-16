@@ -1,19 +1,23 @@
 ## Steps to run code
 
-1. cd to root directory and run 'npm install'
-2. cd to server directory and run 'npm install'
-3. in server directory run 'nodemon server'
-4. in root directory run 'npm run dev'
-5. open http://localhost:5173 in browser
+1. Clone the repo and 'cd' to its root
+2. Run 'npm install' to install dependencies
+3. 'cd' to server directory and run 'npm install'
+4. in server directory run 'nodemon server'
+5. in root directory run 'npm run dev'
+6. open http://localhost:5173 in browser
 
 ### Environment Variables
 
 Create a `.env` file inside the `server/` directory with the following:
 
 MONGO_URI=your_mongodb_connection_string  
-PORT=5000
+PORT=5000  
+JWT_SECRET_KEY=strong_random_string (e.g., generated via 'openssl rand -base64 64')  
+EMAIL_USER=from_email_address  
+EMAIL_PASS=app_password  
 
-Use your own instance of database or see developer for MONGO_URI value.
+If you need help with any of these values, please reach out to ajessex95@gmail.com.
 
 ### Creating an Account
 
