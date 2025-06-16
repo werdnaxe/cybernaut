@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { useLoginUser } from './hooks'
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const [form, setForm] = useState({
@@ -10,6 +11,8 @@ export default function LoginForm() {
   });
   const { loginUser } = useLoginUser();
   const [error, setError] = useState(null);
+  const [showRecoveryOptions, setShowRecoveryOptions] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm(f => ({...f, [e.target.name]: e.target.value}));
@@ -17,6 +20,7 @@ export default function LoginForm() {
   };
 
   // Handles user form input and submission
+  // Provide a "Need help logging in?" link that provides a link to reset username or password
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -43,20 +47,47 @@ export default function LoginForm() {
       <h1 className = "text-2xl mb-4">User Login</h1>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-          name="username" value={form.name} onChange={handleChange}
-          placeholder="Username" required
-          className="w-full border px-3 py-2 rounded" />
-          <input
-          name="password" type="password" value={form.password} onChange={handleChange}
-          placeholder="Password" required
-          className="w-full border px-3 py-2 rounded" />
-          <button type="submit"
-                  className="w-full bg-blue-600 text-white py-2 rounded">
-            Login
-          </button>
+          {!showRecoveryOptions ? (
+            <>
+              <input
+                name="username" value={form.name} onChange={handleChange}
+                placeholder="Username" required
+                className="w-full border px-3 py-2 rounded" />
+              <input
+                name="password" type="password" value={form.password} onChange={handleChange}
+                placeholder="Password" required
+                className="w-full border px-3 py-2 rounded" />
+              <button type="submit"
+                      className="w-full bg-blue-600 text-white py-2 rounded">
+                Login
+              </button>
+
+              {/* The below link redirects the user to the Profile Recovery page */}
+              <button
+                type="button"   // should prevent form submission
+                onClick={() => setShowRecoveryOptions(true)}
+                className="text-blue-600 hover:underline bg-transparent border-none p-0 m-0 cursor-pointer">
+                Need help logging in?
+              </button>
+            </>
+          ) : (
+            <>
+              {/* Login Help link was clicked, triggering the below profile recovery options */}
+              <button
+                type="button"   // should prevent form submission
+                onClick={() => navigate('/profile-recovery?option=username')}
+                className="w-full mb-2 text-left text-blue-600 hover:underline">
+                Recover Username
+              </button>
+              <button
+                type="button"   // should prevent form submission
+                onClick={() => navigate('/profile-recovery?option=password')}
+                className="w-full mb-2 text-left text-blue-600 hover:underline">
+                Reset Password
+              </button>
+            </>
+          )}
         </form>
     </div>
-  )
-
-}
+  );
+};

@@ -79,7 +79,7 @@ export const updateUsernameByID = async (id, { username }) => {
 // PUT (update) password by ID
 export const updatePasswordByID = async (id, { password }) => {
     const token = localStorage.getItem('site');
-    const { data } = await axios.put(`${API_URL}/users/${id}/password`, { password }, 
+    const { data } = await axios.put(`${API_URL}/users/${id}/password`, { password },   // endpoint in userRoutes.js
         {
             headers: {
                 Authorization: `Bearer ${token}`,

@@ -179,4 +179,70 @@ router.post('/refresh', async (req, res) => {
     });
 });
 
+// Forgot username or password route
+router.post('/login-help', async (req, res) => {
+    // First parse the URL query parameters to determine if the user is recovering their username or resetting their password
+    const option = req.query.option;   // either 'username' or 'password'
+
+    // THen grab the email from the JSON body of the request
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).send('Email is required');
+    }
+
+    // Then check if the user exists in the DB with the provided email
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).send('User not found');
+    }
+
+    // Create a transporter for sending emails
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+    let mailOptions;
+    // If the user is recovering their username, send them an email with their username. 
+    if (option === 'username') {
+        const username = user.username;
+
+        // Send verification email
+        mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Username Recovery',
+            text: `Your username is ${username}\n\n - WMSMDM Team`,
+        };
+    } else {   // (option === 'password')
+        // Generate a password reset token
+        const passwordResetToken = jwt.sign( 
+            { id: user._id }, 
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '10m' }
+        );
+
+        // Send verification email
+        mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Password Reset',
+            text: `Please click the link to reset your password. This link will expire in 10 minutes: 
+                   http://localhost:5173/reset-password?token=${passwordResetToken}`,
+        };
+    }
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Recovery email sent to:', email);
+        res.status(200).send('Recovery email sent');
+    } catch (error) {
+        console.error('Error sending recovery email:', error);
+        res.status(500).send('Error sending recovery email');
+    }
+});
+
 export default router;

@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import GradeLevel from './pages/GradeLevel';
-import UserForms from './pages/UserForms';
+import UserForms from './pages/UserForms.jsx';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './features/users/PrivateRoute';
@@ -24,7 +24,8 @@ import MM1 from './pages/MM1/MM1';
 import MM2 from './pages/MM2/MM2';
 import DDP1 from './pages/DDP1/DDP1'
 import DDP2 from './pages/DDP2/DDP2';
-
+import ProfileRecovery from './features/users/ProfileRecovery.jsx';
+import ResetPassword from './features/users/ResetPassword';
 
 const App = () => {
   return (
@@ -57,6 +58,8 @@ const App = () => {
           <Route path="/MM2" element={<MM2 />} />
           <Route path="/DDP1" element={<DDP1 />} />
           <Route path="/DDP2" element={<DDP2 />} />
+          <Route path="/profile-recovery" element={<ProfileRecovery />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </main>
     </div>

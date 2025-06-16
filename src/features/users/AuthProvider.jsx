@@ -125,7 +125,7 @@ const AuthProvider = ({ children }) => {
     // Updates password
     const updatePassword = async (id, { password }) => {
         try {
-            const updatedUser = await usersAPI.updatePasswordByID(
+            const updatedUser = await usersAPI.updatePasswordByID(   // routes through api.js
                 id, 
                 { password },   
             );
