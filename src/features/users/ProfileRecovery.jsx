@@ -34,13 +34,9 @@ const ProfileRecovery = () => {
       } else {
         alert('There was an error processing your request. Please try again later.');
       }
-
     } catch (error) {
       console.error('Error recovering profile:', error);
     }
-
-
-
   }
 
   return (
@@ -70,18 +66,8 @@ const ProfileRecovery = () => {
           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
           Submit
         </button>
-      
-
-
       </form>
-      
-      
-      
-      
-      
     </div>
-
-
   );
 };
 

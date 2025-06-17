@@ -238,11 +238,25 @@ router.post('/login-help', async (req, res) => {
     try {
         await transporter.sendMail(mailOptions);
         console.log('Recovery email sent to:', email);
-        res.status(200).send('Recovery email sent');
+        res.status(200).send(email, 'Recovery email sent');
     } catch (error) {
         console.error('Error sending recovery email:', error);
         res.status(500).send('Error sending recovery email');
     }
+});
+
+// Reset password (logged out) route
+router.put('/reset-password', async (req, res) => {
+    const userID = req.body.userID;
+    const user = await User.findById(userID);
+    const newPassword = req.body.password;
+
+    // Hash new password before updating
+    user.password = await bcrypt.hash(newPassword, 10);
+    const updatedUser = await user.save();
+    console.log('Password updated:', updatedUser.password);
+
+    res.status(200).send('Password successfully reset');
 });
 
 export default router;

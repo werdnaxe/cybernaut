@@ -1,4 +1,4 @@
-// /* This is the LoginForm component. It will allow a user to login to their account. */
+/* This is the LoginForm component. It will allow a user to login to their account. */
 
 import React, { useState } from 'react'
 import { useLoginUser } from './hooks'
@@ -15,7 +15,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm(f => ({...f, [e.target.name]: e.target.value}));
+    setForm(form => ({...form, [e.target.name]: e.target.value}));
     setError(null);   // clears error on input change (when user starts typing again)
   };
 
@@ -50,7 +50,7 @@ export default function LoginForm() {
           {!showRecoveryOptions ? (
             <>
               <input
-                name="username" value={form.name} onChange={handleChange}
+                name="username" value={form.username} onChange={handleChange}
                 placeholder="Username" required
                 className="w-full border px-3 py-2 rounded" />
               <input

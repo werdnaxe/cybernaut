@@ -17,7 +17,7 @@ export default function SignupForm() {
   const [signupEmail, setSignupEmail] = useState(() => localStorage.getItem('signup_email') || '');
 
   const handleChange = (e) => {
-    setForm(f => ({...f, [e.target.name]: e.target.value}));
+    setForm(form => ({...form, [e.target.name]: e.target.value}));
     setError(null);
   };
 
@@ -56,17 +56,17 @@ export default function SignupForm() {
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-          name="username" value={form.username} onChange={handleChange}
-          placeholder="Username" required
-          className="w-full border px-3 py-2 rounded" />
+            name="username" value={form.username} onChange={handleChange}
+            placeholder="Username" required
+            className="w-full border px-3 py-2 rounded" />
           <input
-          name="email" type="email" value={form.email} onChange={handleChange}
-          placeholder="Email" required
-          className="w-full border px-3 py-2 rounded" />
+            name="email" type="email" value={form.email} onChange={handleChange}
+            placeholder="Email" required
+            className="w-full border px-3 py-2 rounded" />
           <input
-          name="password" type="password" value={form.password} onChange={handleChange}
-          placeholder="Password" required
-          className="w-full border px-3 py-2 rounded" />
+            name="password" type="password" value={form.password} onChange={handleChange}
+            placeholder="Password" required
+            className="w-full border px-3 py-2 rounded" />
           <button type="submit"
                   className="w-full bg-blue-600 text-white py-2 rounded">
             Create User
